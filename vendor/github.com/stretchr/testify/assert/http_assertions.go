@@ -2,7 +2,6 @@ package assert
 
 import (
 	"fmt"
-	"io"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -34,6 +33,7 @@ func HTTPSuccess(t TestingT, handler http.HandlerFunc, method, url string, value
 	code, err := httpCode(handler, method, url, values)
 	if err != nil {
 		Fail(t, fmt.Sprintf("Failed to build test request, got error: %s", err))
+		return false
 	}
 
 	isSuccessCode := code >= http.StatusOK && code <= http.StatusPartialContent
@@ -56,6 +56,7 @@ func HTTPRedirect(t TestingT, handler http.HandlerFunc, method, url string, valu
 	code, err := httpCode(handler, method, url, values)
 	if err != nil {
 		Fail(t, fmt.Sprintf("Failed to build test request, got error: %s", err))
+		return false
 	}
 
 	isRedirectCode := code >= http.StatusMultipleChoices && code <= http.StatusTemporaryRedirect
@@ -78,6 +79,7 @@ func HTTPError(t TestingT, handler http.HandlerFunc, method, url string, values 
 	code, err := httpCode(handler, method, url, values)
 	if err != nil {
 		Fail(t, fmt.Sprintf("Failed to build test request, got error: %s", err))
+		return false
 	}
 
 	isErrorCode := code >= http.StatusBadRequest
@@ -88,37 +90,11 @@ func HTTPError(t TestingT, handler http.HandlerFunc, method, url string, values 
 	return isErrorCode
 }
 
-// HTTPStatusCode asserts that a specified handler returns a specified status code.
-//
-//  assert.HTTPStatusCode(t, myHandler, "GET", "/notImplemented", nil, 501)
-//
-// Returns whether the assertion was successful (true) or not (false).
-func HTTPStatusCode(t TestingT, handler http.HandlerFunc, method, url string, values url.Values, statuscode int, msgAndArgs ...interface{}) bool {
-	if h, ok := t.(tHelper); ok {
-		h.Helper()
-	}
-	code, err := httpCode(handler, method, url, values)
-	if err != nil {
-		Fail(t, fmt.Sprintf("Failed to build test request, got error: %s", err))
-	}
-
-	successful := code == statuscode
-	if !successful {
-		Fail(t, fmt.Sprintf("Expected HTTP status code %d for %q but received %d", statuscode, url+"?"+values.Encode(), code))
-	}
-
-	return successful
-}
-
 // HTTPBody is a helper that returns HTTP body of the response. It returns
 // empty string if building a new request fails.
-func HTTPBody(handler http.HandlerFunc, method, url string, values url.Values, body io.Reader) string {
+func HTTPBody(handler http.HandlerFunc, method, url string, values url.Values) string {
 	w := httptest.NewRecorder()
-
-	if values != nil {
-		url = url + "?" + values.Encode()
-	}
-	req, err := http.NewRequest(method, url, body)
+	req, err := http.NewRequest(method, url+"?"+values.Encode(), nil)
 	if err != nil {
 		return ""
 	}
@@ -132,13 +108,13 @@ func HTTPBody(handler http.HandlerFunc, method, url string, values url.Values, b
 //  assert.HTTPBodyContains(t, myHandler, "GET", "www.google.com", nil, "I'm Feeling Lucky")
 //
 // Returns whether the assertion was successful (true) or not (false).
-func HTTPBodyContains(t TestingT, handler http.HandlerFunc, method, url string, values url.Values, body io.Reader, str interface{}, msgAndArgs ...interface{}) bool {
+func HTTPBodyContains(t TestingT, handler http.HandlerFunc, method, url string, values url.Values, str interface{}, msgAndArgs ...interface{}) bool {
 	if h, ok := t.(tHelper); ok {
 		h.Helper()
 	}
-	httpBody := HTTPBody(handler, method, url, values, body)
+	body := HTTPBody(handler, method, url, values)
 
-	contains := strings.Contains(httpBody, fmt.Sprint(str))
+	contains := strings.Contains(body, fmt.Sprint(str))
 	if !contains {
 		Fail(t, fmt.Sprintf("Expected response body for \"%s\" to contain \"%s\" but found \"%s\"", url+"?"+values.Encode(), str, body))
 	}
@@ -152,13 +128,13 @@ func HTTPBodyContains(t TestingT, handler http.HandlerFunc, method, url string, 
 //  assert.HTTPBodyNotContains(t, myHandler, "GET", "www.google.com", nil, "I'm Feeling Lucky")
 //
 // Returns whether the assertion was successful (true) or not (false).
-func HTTPBodyNotContains(t TestingT, handler http.HandlerFunc, method, url string, values url.Values, body io.Reader, str interface{}, msgAndArgs ...interface{}) bool {
+func HTTPBodyNotContains(t TestingT, handler http.HandlerFunc, method, url string, values url.Values, str interface{}, msgAndArgs ...interface{}) bool {
 	if h, ok := t.(tHelper); ok {
 		h.Helper()
 	}
-	httpBody := HTTPBody(handler, method, url, values, body)
+	body := HTTPBody(handler, method, url, values)
 
-	contains := strings.Contains(httpBody, fmt.Sprint(str))
+	contains := strings.Contains(body, fmt.Sprint(str))
 	if contains {
 		Fail(t, fmt.Sprintf("Expected response body for \"%s\" to NOT contain \"%s\" but found \"%s\"", url+"?"+values.Encode(), str, body))
 	}

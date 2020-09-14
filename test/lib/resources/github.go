@@ -24,7 +24,7 @@ import (
 	"knative.dev/pkg/apis"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"knative.dev/eventing-contrib/github/pkg/apis/sources/v1alpha1"
+	"knative.dev/eventing-github/pkg/apis/sources/v1alpha1"
 )
 
 // GitHubSourceOptionV1Alpha1 enables further configuration of a GitHubSource.
