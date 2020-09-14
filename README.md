@@ -1,13 +1,13 @@
-# Knative Eventing GitHub Source 
+# Knative Eventing GitHub Source
 
 |               |                                                                                                                    |
 | ------------- | ------------------------------------------------------------------------------------------------------------------ |
 | STATUS        | Alpha                                                                                                              |
 | Sponsoring WG | [Event Source](https://github.com/knative/community/blob/master/working-groups/WORKING-GROUPS.md#eventing-sources) |
 
-The Knative GitHub Source registers for events of the specified types on 
-the specified GitHub organization or repository, and brings those events into Knative. 
-The GitHubSource fires a new event for selected GitHub event types.
+The Knative GitHub Source registers for events of the specified types on the
+specified GitHub organization or repository, and brings those events into
+Knative. The GitHubSource fires a new event for selected GitHub event types.
 
 ---
 
