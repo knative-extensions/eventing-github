@@ -23,9 +23,9 @@ import (
 	fakeeventingclientset "knative.dev/eventing/pkg/client/clientset/versioned/fake"
 	"knative.dev/pkg/reconciler/testing"
 
-	githubsourcev1alpha1 "knative.dev/eventing-contrib/github/pkg/apis/sources/v1alpha1"
-	fakegithubclientset "knative.dev/eventing-contrib/github/pkg/client/clientset/versioned/fake"
-	githubsourcev1alpha1listers "knative.dev/eventing-contrib/github/pkg/client/listers/sources/v1alpha1"
+	githubsourcev1alpha1 "knative.dev/eventing-github/pkg/apis/sources/v1alpha1"
+	fakegithubclientset "knative.dev/eventing-github/pkg/client/clientset/versioned/fake"
+	githubsourcev1alpha1listers "knative.dev/eventing-github/pkg/client/listers/sources/v1alpha1"
 )
 
 var clientSetSchemes = []func(*runtime.Scheme) error{

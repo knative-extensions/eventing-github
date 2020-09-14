@@ -6,7 +6,6 @@
 package assert
 
 import (
-	io "io"
 	http "net/http"
 	url "net/url"
 	time "time"
@@ -170,7 +169,7 @@ func (a *Assertions) EqualValues(expected interface{}, actual interface{}, msgAn
 // EqualValuesf asserts that two objects are equal or convertable to the same types
 // and equal.
 //
-//    a.EqualValuesf(uint32(123), int32(123), "error message %s", "formatted")
+//    a.EqualValuesf(uint32(123, "error message %s", "formatted"), int32(123))
 func (a *Assertions) EqualValuesf(expected interface{}, actual interface{}, msg string, args ...interface{}) bool {
 	if h, ok := a.t.(tHelper); ok {
 		h.Helper()
@@ -252,7 +251,7 @@ func (a *Assertions) Exactly(expected interface{}, actual interface{}, msgAndArg
 
 // Exactlyf asserts that two objects are equal in value and type.
 //
-//    a.Exactlyf(int32(123), int64(123), "error message %s", "formatted")
+//    a.Exactlyf(int32(123, "error message %s", "formatted"), int64(123))
 func (a *Assertions) Exactlyf(expected interface{}, actual interface{}, msg string, args ...interface{}) bool {
 	if h, ok := a.t.(tHelper); ok {
 		h.Helper()
@@ -371,7 +370,7 @@ func (a *Assertions) GreaterOrEqualf(e1 interface{}, e2 interface{}, msg string,
 // Greaterf asserts that the first element is greater than the second
 //
 //    a.Greaterf(2, 1, "error message %s", "formatted")
-//    a.Greaterf(float64(2), float64(1), "error message %s", "formatted")
+//    a.Greaterf(float64(2, "error message %s", "formatted"), float64(1))
 //    a.Greaterf("b", "a", "error message %s", "formatted")
 func (a *Assertions) Greaterf(e1 interface{}, e2 interface{}, msg string, args ...interface{}) bool {
 	if h, ok := a.t.(tHelper); ok {
@@ -386,11 +385,11 @@ func (a *Assertions) Greaterf(e1 interface{}, e2 interface{}, msg string, args .
 //  a.HTTPBodyContains(myHandler, "GET", "www.google.com", nil, "I'm Feeling Lucky")
 //
 // Returns whether the assertion was successful (true) or not (false).
-func (a *Assertions) HTTPBodyContains(handler http.HandlerFunc, method string, url string, values url.Values, body io.Reader, str interface{}, msgAndArgs ...interface{}) bool {
+func (a *Assertions) HTTPBodyContains(handler http.HandlerFunc, method string, url string, values url.Values, str interface{}, msgAndArgs ...interface{}) bool {
 	if h, ok := a.t.(tHelper); ok {
 		h.Helper()
 	}
-	return HTTPBodyContains(a.t, handler, method, url, values, body, str, msgAndArgs...)
+	return HTTPBodyContains(a.t, handler, method, url, values, str, msgAndArgs...)
 }
 
 // HTTPBodyContainsf asserts that a specified handler returns a
@@ -399,11 +398,11 @@ func (a *Assertions) HTTPBodyContains(handler http.HandlerFunc, method string, u
 //  a.HTTPBodyContainsf(myHandler, "GET", "www.google.com", nil, "I'm Feeling Lucky", "error message %s", "formatted")
 //
 // Returns whether the assertion was successful (true) or not (false).
-func (a *Assertions) HTTPBodyContainsf(handler http.HandlerFunc, method string, url string, values url.Values, body io.Reader, str interface{}, msg string, args ...interface{}) bool {
+func (a *Assertions) HTTPBodyContainsf(handler http.HandlerFunc, method string, url string, values url.Values, str interface{}, msg string, args ...interface{}) bool {
 	if h, ok := a.t.(tHelper); ok {
 		h.Helper()
 	}
-	return HTTPBodyContainsf(a.t, handler, method, url, values, body, str, msg, args...)
+	return HTTPBodyContainsf(a.t, handler, method, url, values, str, msg, args...)
 }
 
 // HTTPBodyNotContains asserts that a specified handler returns a
@@ -412,11 +411,11 @@ func (a *Assertions) HTTPBodyContainsf(handler http.HandlerFunc, method string, 
 //  a.HTTPBodyNotContains(myHandler, "GET", "www.google.com", nil, "I'm Feeling Lucky")
 //
 // Returns whether the assertion was successful (true) or not (false).
-func (a *Assertions) HTTPBodyNotContains(handler http.HandlerFunc, method string, url string, values url.Values, body io.Reader, str interface{}, msgAndArgs ...interface{}) bool {
+func (a *Assertions) HTTPBodyNotContains(handler http.HandlerFunc, method string, url string, values url.Values, str interface{}, msgAndArgs ...interface{}) bool {
 	if h, ok := a.t.(tHelper); ok {
 		h.Helper()
 	}
-	return HTTPBodyNotContains(a.t, handler, method, url, values, body, str, msgAndArgs...)
+	return HTTPBodyNotContains(a.t, handler, method, url, values, str, msgAndArgs...)
 }
 
 // HTTPBodyNotContainsf asserts that a specified handler returns a
@@ -425,11 +424,11 @@ func (a *Assertions) HTTPBodyNotContains(handler http.HandlerFunc, method string
 //  a.HTTPBodyNotContainsf(myHandler, "GET", "www.google.com", nil, "I'm Feeling Lucky", "error message %s", "formatted")
 //
 // Returns whether the assertion was successful (true) or not (false).
-func (a *Assertions) HTTPBodyNotContainsf(handler http.HandlerFunc, method string, url string, values url.Values, body io.Reader, str interface{}, msg string, args ...interface{}) bool {
+func (a *Assertions) HTTPBodyNotContainsf(handler http.HandlerFunc, method string, url string, values url.Values, str interface{}, msg string, args ...interface{}) bool {
 	if h, ok := a.t.(tHelper); ok {
 		h.Helper()
 	}
-	return HTTPBodyNotContainsf(a.t, handler, method, url, values, body, str, msg, args...)
+	return HTTPBodyNotContainsf(a.t, handler, method, url, values, str, msg, args...)
 }
 
 // HTTPError asserts that a specified handler returns an error status code.
@@ -448,7 +447,7 @@ func (a *Assertions) HTTPError(handler http.HandlerFunc, method string, url stri
 //
 //  a.HTTPErrorf(myHandler, "POST", "/a/b/c", url.Values{"a": []string{"b", "c"}}
 //
-// Returns whether the assertion was successful (true) or not (false).
+// Returns whether the assertion was successful (true, "error message %s", "formatted") or not (false).
 func (a *Assertions) HTTPErrorf(handler http.HandlerFunc, method string, url string, values url.Values, msg string, args ...interface{}) bool {
 	if h, ok := a.t.(tHelper); ok {
 		h.Helper()
@@ -472,36 +471,12 @@ func (a *Assertions) HTTPRedirect(handler http.HandlerFunc, method string, url s
 //
 //  a.HTTPRedirectf(myHandler, "GET", "/a/b/c", url.Values{"a": []string{"b", "c"}}
 //
-// Returns whether the assertion was successful (true) or not (false).
+// Returns whether the assertion was successful (true, "error message %s", "formatted") or not (false).
 func (a *Assertions) HTTPRedirectf(handler http.HandlerFunc, method string, url string, values url.Values, msg string, args ...interface{}) bool {
 	if h, ok := a.t.(tHelper); ok {
 		h.Helper()
 	}
 	return HTTPRedirectf(a.t, handler, method, url, values, msg, args...)
-}
-
-// HTTPStatusCode asserts that a specified handler returns a specified status code.
-//
-//  a.HTTPStatusCode(myHandler, "GET", "/notImplemented", nil, 501)
-//
-// Returns whether the assertion was successful (true) or not (false).
-func (a *Assertions) HTTPStatusCode(handler http.HandlerFunc, method string, url string, values url.Values, statuscode int, msgAndArgs ...interface{}) bool {
-	if h, ok := a.t.(tHelper); ok {
-		h.Helper()
-	}
-	return HTTPStatusCode(a.t, handler, method, url, values, statuscode, msgAndArgs...)
-}
-
-// HTTPStatusCodef asserts that a specified handler returns a specified status code.
-//
-//  a.HTTPStatusCodef(myHandler, "GET", "/notImplemented", nil, 501, "error message %s", "formatted")
-//
-// Returns whether the assertion was successful (true) or not (false).
-func (a *Assertions) HTTPStatusCodef(handler http.HandlerFunc, method string, url string, values url.Values, statuscode int, msg string, args ...interface{}) bool {
-	if h, ok := a.t.(tHelper); ok {
-		h.Helper()
-	}
-	return HTTPStatusCodef(a.t, handler, method, url, values, statuscode, msg, args...)
 }
 
 // HTTPSuccess asserts that a specified handler returns a success status code.
@@ -540,7 +515,7 @@ func (a *Assertions) Implements(interfaceObject interface{}, object interface{},
 
 // Implementsf asserts that an object is implemented by the specified interface.
 //
-//    a.Implementsf((*MyInterface)(nil), new(MyObject), "error message %s", "formatted")
+//    a.Implementsf((*MyInterface, "error message %s", "formatted")(nil), new(MyObject))
 func (a *Assertions) Implementsf(interfaceObject interface{}, object interface{}, msg string, args ...interface{}) bool {
 	if h, ok := a.t.(tHelper); ok {
 		h.Helper()
@@ -731,7 +706,7 @@ func (a *Assertions) LessOrEqualf(e1 interface{}, e2 interface{}, msg string, ar
 // Lessf asserts that the first element is less than the second
 //
 //    a.Lessf(1, 2, "error message %s", "formatted")
-//    a.Lessf(float64(1), float64(2), "error message %s", "formatted")
+//    a.Lessf(float64(1, "error message %s", "formatted"), float64(2))
 //    a.Lessf("a", "b", "error message %s", "formatted")
 func (a *Assertions) Lessf(e1 interface{}, e2 interface{}, msg string, args ...interface{}) bool {
 	if h, ok := a.t.(tHelper); ok {
@@ -909,26 +884,6 @@ func (a *Assertions) NotEqual(expected interface{}, actual interface{}, msgAndAr
 	return NotEqual(a.t, expected, actual, msgAndArgs...)
 }
 
-// NotEqualValues asserts that two objects are not equal even when converted to the same type
-//
-//    a.NotEqualValues(obj1, obj2)
-func (a *Assertions) NotEqualValues(expected interface{}, actual interface{}, msgAndArgs ...interface{}) bool {
-	if h, ok := a.t.(tHelper); ok {
-		h.Helper()
-	}
-	return NotEqualValues(a.t, expected, actual, msgAndArgs...)
-}
-
-// NotEqualValuesf asserts that two objects are not equal even when converted to the same type
-//
-//    a.NotEqualValuesf(obj1, obj2, "error message %s", "formatted")
-func (a *Assertions) NotEqualValuesf(expected interface{}, actual interface{}, msg string, args ...interface{}) bool {
-	if h, ok := a.t.(tHelper); ok {
-		h.Helper()
-	}
-	return NotEqualValuesf(a.t, expected, actual, msg, args...)
-}
-
 // NotEqualf asserts that the specified values are NOT equal.
 //
 //    a.NotEqualf(obj1, obj2, "error message %s", "formatted")
@@ -995,7 +950,7 @@ func (a *Assertions) NotRegexp(rx interface{}, str interface{}, msgAndArgs ...in
 
 // NotRegexpf asserts that a specified regexp does not match a string.
 //
-//  a.NotRegexpf(regexp.MustCompile("starts"), "it's starting", "error message %s", "formatted")
+//  a.NotRegexpf(regexp.MustCompile("starts", "error message %s", "formatted"), "it's starting")
 //  a.NotRegexpf("^start", "it's not starting", "error message %s", "formatted")
 func (a *Assertions) NotRegexpf(rx interface{}, str interface{}, msg string, args ...interface{}) bool {
 	if h, ok := a.t.(tHelper); ok {
@@ -1147,7 +1102,7 @@ func (a *Assertions) Regexp(rx interface{}, str interface{}, msgAndArgs ...inter
 
 // Regexpf asserts that a specified regexp matches a string.
 //
-//  a.Regexpf(regexp.MustCompile("start"), "it's starting", "error message %s", "formatted")
+//  a.Regexpf(regexp.MustCompile("start", "error message %s", "formatted"), "it's starting")
 //  a.Regexpf("start...$", "it's not starting", "error message %s", "formatted")
 func (a *Assertions) Regexpf(rx interface{}, str interface{}, msg string, args ...interface{}) bool {
 	if h, ok := a.t.(tHelper); ok {
