@@ -24,8 +24,8 @@ export GO111MODULE=on
 # Yaml files to generate, and the source config dir for them.
 declare -A COMPONENTS
 COMPONENTS=(
-  ["github.yaml"]="github/config"
-  ["mt-github.yaml"]="github/config/mt-github"
+  ["github.yaml"]="config"
+  ["mt-github.yaml"]="config/mt-github"
 )
 readonly COMPONENTS
 
