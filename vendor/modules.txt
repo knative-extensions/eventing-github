@@ -946,7 +946,7 @@ k8s.io/utils/buffer
 k8s.io/utils/integer
 k8s.io/utils/pointer
 k8s.io/utils/trace
-# knative.dev/eventing v0.17.1-0.20200918175944-2e9637965169
+# knative.dev/eventing v0.17.1-0.20200922073637-bfa066dc34b4
 ## explicit
 knative.dev/eventing/pkg/adapter/v2
 knative.dev/eventing/pkg/adapter/v2/test
@@ -998,11 +998,9 @@ knative.dev/eventing/pkg/client/injection/client
 knative.dev/eventing/pkg/client/injection/client/fake
 knative.dev/eventing/pkg/configmap
 knative.dev/eventing/pkg/kncloudevents
-knative.dev/eventing/pkg/leaderelection
 knative.dev/eventing/pkg/logconfig
 knative.dev/eventing/pkg/tracing
 knative.dev/eventing/pkg/utils
-knative.dev/eventing/pkg/utils/cache
 knative.dev/eventing/test/lib
 knative.dev/eventing/test/lib/dropevents
 knative.dev/eventing/test/lib/dropevents/dropeventsfibonacci
@@ -1026,11 +1024,11 @@ knative.dev/eventing/test/test_images/print
 knative.dev/eventing/test/test_images/recordevents
 knative.dev/eventing/test/test_images/sequencestepper
 knative.dev/eventing/test/test_images/transformevents
-# knative.dev/networking v0.0.0-20200917035342-994d214cdf82
+# knative.dev/networking v0.0.0-20200920210745-4f0d9e380f91
 knative.dev/networking/pkg
 knative.dev/networking/pkg/apis/networking
 knative.dev/networking/pkg/apis/networking/v1alpha1
-# knative.dev/pkg v0.0.0-20200920210445-c46a18644992
+# knative.dev/pkg v0.0.0-20200921223636-6a12c7596267
 ## explicit
 knative.dev/pkg/apis
 knative.dev/pkg/apis/duck
@@ -1108,7 +1106,7 @@ knative.dev/pkg/webhook/psbinding
 knative.dev/pkg/webhook/resourcesemantics
 knative.dev/pkg/webhook/resourcesemantics/defaulting
 knative.dev/pkg/webhook/resourcesemantics/validation
-# knative.dev/serving v0.17.1-0.20200919234145-7398ed7b7e45
+# knative.dev/serving v0.17.1-0.20200922135336-999987b4cb22
 ## explicit
 knative.dev/serving/pkg/apis/autoscaling
 knative.dev/serving/pkg/apis/autoscaling/v1alpha1
@@ -1118,6 +1116,7 @@ knative.dev/serving/pkg/apis/serving/v1
 knative.dev/serving/pkg/apis/serving/v1alpha1
 knative.dev/serving/pkg/apis/serving/v1beta1
 knative.dev/serving/pkg/autoscaler/config
+knative.dev/serving/pkg/autoscaler/config/autoscalerconfig
 knative.dev/serving/pkg/client/clientset/versioned
 knative.dev/serving/pkg/client/clientset/versioned/scheme
 knative.dev/serving/pkg/client/clientset/versioned/typed/autoscaling/v1alpha1
