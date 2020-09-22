@@ -14,10 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package leaderelection
+// +k8s:deepcopy-gen=package
 
-import (
-	kle "knative.dev/pkg/leaderelection"
-)
-
-var ValidateConfig = kle.NewConfigFromConfigMap
+package autoscalerconfig
