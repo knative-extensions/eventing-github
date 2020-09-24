@@ -31,7 +31,7 @@ spec:
     spec:
       serviceAccountName: github-controller-manager
       containers:
-      - image: ko://knative.dev/eventing-contrib/github/cmd/controller
+      - image: ko://knative.dev/eventing-github/cmd/controller
         name: manager
         env:
         - name: SYSTEM_NAMESPACE
