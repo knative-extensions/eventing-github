@@ -26,7 +26,7 @@ spec:
     spec:
       serviceAccountName: github-adapter
       containers:
-      - image: ko://knative.dev/eventing-contrib/github/cmd/mt_receive_adapter
+      - image: ko://knative.dev/eventing-github/cmd/mt_receive_adapter
         env:
         - name: NAMESPACE
           value: knative-sources

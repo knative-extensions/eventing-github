@@ -35,7 +35,7 @@ spec:
       containers:
       - name: github-webhook
         terminationMessagePolicy: FallbackToLogsOnError
-        image: ko://knative.dev/eventing-contrib/github/cmd/webhook
+        image: ko://knative.dev/eventing-github/cmd/webhook
         env:
           - name: SYSTEM_NAMESPACE
             valueFrom:
