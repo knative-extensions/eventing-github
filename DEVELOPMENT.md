@@ -8,11 +8,10 @@ This doc explains how to setup a development environment so you can get started
 ## Getting started
 
 1. Setup [Knative Serving](http://github.com/knative/serving)
-1. Setup [Knative Eventing](http://github.com/knative/eventing)
 1. [Create and checkout a repo fork](#checkout-your-fork)
 
 Once you meet these requirements, you can
-[install sources](#installing-sources)!
+[install the GitHub Source](#installing-source)!
 
 Before submitting a PR, see also [CONTRIBUTING.md](./CONTRIBUTING.md).
 
@@ -21,15 +20,12 @@ Before submitting a PR, see also [CONTRIBUTING.md](./CONTRIBUTING.md).
 You must have the core of [Knative Serving](http://github.com/knative/serving)
 running on your cluster.
 
-You must have [Knative Eventing](http://github.com/knative/eventing) running on
-your cluster.
-
 You must have [ko](https://github.com/google/ko) installed.
 
 ### Checkout your fork
 
 The Go tools require that you clone the repository to the
-`src/knative.dev/eventing-contrib` directory in your
+`src/knative.dev/eventing-github` directory in your
 [`GOPATH`](https://github.com/golang/go/wiki/SettingGOPATH).
 
 To check out this repository:
@@ -41,9 +37,9 @@ To check out this repository:
 ```shell
 mkdir -p ${GOPATH}/src/knative.dev
 cd ${GOPATH}/src/knative.dev
-git clone git@github.com:${YOUR_GITHUB_USERNAME}/eventing-contrib.git
-cd eventing-contrib
-git remote add upstream git@github.com:knative/eventing-contrib.git
+git clone git@github.com:${YOUR_GITHUB_USERNAME}/eventing-github.git
+cd eventing-github
+git remote add upstream git@github.com:knative/eventing-github.git
 git remote set-url --push upstream no_push
 ```
 
@@ -53,14 +49,13 @@ _Adding the `upstream` remote sets you up nicely for regularly
 Once you reach this point you are ready to do a full build and deploy as
 follows.
 
-## Installing Sources
+## Installing Source
 
-Once you've [setup your development environment](#getting-started), install any
-of the sources _Github Source_, _AWS SQS Source_, _Camel Source_, _Kafka Source_
-with:
+Once you've [setup your development environment](#getting-started), install the
+_Github Source_ with:
 
 ```
-ko apply -f <source_name>/config  # e.g. github/config
+ko apply -f config
 ```
 
 These commands are idempotent, so you can run them at any time to update your
@@ -86,10 +81,6 @@ kubectl -n knative-sources logs \
     )
 ```
 
-_See [camel/source/samples/README.md](./camel/source/samples/README.md),
-[kafka/source/README.md](./kafka/source/README.md) for instructions on
-installing the Camel Source and Kafka Source._
-
 ## Iterating
 
 As you make changes to the code-base:
@@ -113,7 +104,7 @@ To check that the build and tests passes please see the test
 [`./test/presubmit-tests.sh`](./test/presubmit-tests.sh).
 
 Once the codegen and dependency information is correct, redeploy using the same
-`ko apply` command you used [Installing a Source](#installing-a-source).
+`ko apply` command you used [Installing a Source](#installing-source).
 
 Or you can [clean it up completely](#clean-up) and start again.
 
@@ -127,12 +118,5 @@ Running tests as you make changes to the code-base is pretty simple. See
 You can delete `Knative Sources` with:
 
 ```shell
-ko delete -f <source_name>/config/
+ko delete -f config/
 ```
-
-<!--
-TODO(#15): Add default telemetry.
-## Telemetry
-
-See [telemetry documentation](./docs/telemetry.md).
--->
