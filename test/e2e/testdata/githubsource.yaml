@@ -1,0 +1,23 @@
+apiVersion: sources.knative.dev/v1alpha1
+kind: GitHubSource
+metadata:
+  name: knative-examples
+spec:
+  githubAPIURL: "http://github-mock.githubmock.svc.cluster.local/api/v3/"
+  eventTypes:
+    - pull_request
+    - issues
+  ownerAndRepository: "example/knative-examples"
+  accessToken:
+    secretKeyRef:
+      name: githubsecret
+      key: accessToken
+  secretToken:
+    secretKeyRef:
+      name: githubsecret
+      key: secretToken
+  sink:
+    ref:
+      apiVersion: v1
+      kind: Service
+      name: event-display

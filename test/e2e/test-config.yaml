@@ -1,0 +1,37 @@
+# The configuration file is loaded by the test suite
+#
+# Each configuration parameter can be overridden by a command line
+# option. For instance:
+# buildImages => --build-images
+# requirements.must => --requirements-must
+
+# wheter to run the setup phase
+setup: false
+
+# image repository.
+# e.g. docker.io/user
+# when ko, use $KO_DOCKER_REPO environment variable
+imageRepository: ko
+
+requirements:
+  must: true
+  may: true
+  should: true
+
+components:
+  eventing:
+    sources:
+      github:
+        require: 0.17.0 # main = from source.
+        path: ../..
+
+  serving:
+    require: 0.18.0
+
+  networking:
+    name: kourier
+    require: 0.18.0+kind
+
+  event.observer:
+    target: log
+
