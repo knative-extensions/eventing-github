@@ -1140,7 +1140,7 @@ knative.dev/serving/pkg/client/listers/autoscaling/v1alpha1
 knative.dev/serving/pkg/client/listers/serving/v1
 knative.dev/serving/pkg/client/listers/serving/v1alpha1
 knative.dev/serving/pkg/networking
-# knative.dev/test-infra v0.0.0-20201009204121-322fb08edae7
+# knative.dev/test-infra v0.0.0-20201014021030-ae3984a33f82
 ## explicit
 knative.dev/test-infra/scripts
 # sigs.k8s.io/structured-merge-diff/v3 v3.0.1-0.20200706213357-43c19bbb7fba
