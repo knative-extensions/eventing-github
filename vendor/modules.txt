@@ -1028,7 +1028,7 @@ knative.dev/eventing/test/test_images/transformevents
 knative.dev/networking/pkg
 knative.dev/networking/pkg/apis/networking
 knative.dev/networking/pkg/apis/networking/v1alpha1
-# knative.dev/pkg v0.0.0-20200922164940-4bf40ad82aab
+# knative.dev/pkg v0.0.0-20201026165741-2f75016c1368
 ## explicit
 knative.dev/pkg/apis
 knative.dev/pkg/apis/duck
