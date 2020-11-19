@@ -10,13 +10,13 @@ require (
 	go.uber.org/zap v1.16.0
 	golang.org/x/oauth2 v0.0.0-20200902213428-5d25da1a8d43
 	gopkg.in/go-playground/webhooks.v5 v5.13.0
-	k8s.io/api v0.18.8
+	k8s.io/api v0.18.12
 	k8s.io/apimachinery v0.19.0
 	k8s.io/client-go v11.0.1-0.20190805182717-6502b5e7b1b5+incompatible
-	knative.dev/eventing v0.19.1-0.20201112173800-1648d90fd680
-	knative.dev/hack v0.0.0-20201112185459-01a34c573bd8
-	knative.dev/pkg v0.0.0-20201112201059-93fedf141385
-	knative.dev/serving v0.19.1-0.20201112143100-1dd43e9d8b03
+	knative.dev/eventing v0.19.1-0.20201119013252-7c1b89c10721
+	knative.dev/hack v0.0.0-20201118155651-b31d3bb6bff9
+	knative.dev/pkg v0.0.0-20201117221452-0fccc54273ed
+	knative.dev/serving v0.19.1-0.20201119003152-f85ddf128ecc
 )
 
 replace (
