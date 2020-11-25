@@ -23,7 +23,6 @@ import (
 	bindingv1alpha1 "knative.dev/eventing-github/pkg/apis/bindings/v1alpha1"
 	sourcev1alpha1 "knative.dev/eventing-github/pkg/apis/sources/v1alpha1"
 	"knative.dev/eventing-github/pkg/reconciler/binding"
-	"knative.dev/eventing/pkg/logconfig"
 	"knative.dev/pkg/configmap"
 	"knative.dev/pkg/controller"
 	"knative.dev/pkg/injection"
@@ -116,7 +115,7 @@ func NewGitHubBindingWebhook(opts ...psbinding.ReconcilerOption) injection.Contr
 func main() {
 	// Set up a signal context with our webhook options
 	ctx := webhook.WithOptions(signals.NewContext(), webhook.Options{
-		ServiceName: logconfig.WebhookName(),
+		ServiceName: webhook.NameFromEnv(),
 		Port:        8443,
 		SecretName:  "github-webhook-certs",
 	})
@@ -126,7 +125,7 @@ func main() {
 		ghbSelector = psbinding.WithSelector(psbinding.InclusionSelector)
 	}
 
-	sharedmain.WebhookMainWithContext(ctx, logconfig.WebhookName(),
+	sharedmain.WebhookMainWithContext(ctx, webhook.NameFromEnv(),
 		certificates.NewController,
 		NewDefaultingAdmissionController,
 		NewValidationAdmissionController,

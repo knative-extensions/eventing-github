@@ -958,7 +958,6 @@ knative.dev/eventing/pkg/client/clientset/versioned/typed/sources/v1beta2/fake
 knative.dev/eventing/pkg/client/injection/client
 knative.dev/eventing/pkg/client/injection/client/fake
 knative.dev/eventing/pkg/kncloudevents
-knative.dev/eventing/pkg/logconfig
 knative.dev/eventing/pkg/utils
 knative.dev/eventing/test/lib
 knative.dev/eventing/test/lib/dropevents
