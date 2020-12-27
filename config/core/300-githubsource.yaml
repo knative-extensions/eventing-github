@@ -93,15 +93,15 @@ spec:
       properties:
         spec:
           properties:
-            accessToken:
-              properties:
-                secretKeyRef:
-                  type: object
-              type: object
-            ceOverrides:
-              type: object
-              description: "Defines overrides to control modifications of the event sent to the sink."
+            ownerAndRepository:
+              description: Reference to the GitHub repository to receive events
+                from, in the format user/repository.
+              type: string
+              minLength: 1
             eventTypes:
+              description: List of webhooks to enable on the selected GitHub
+                repository.
+              type: array
               items:
                 enum:
                 - check_suite
@@ -140,15 +140,60 @@ spec:
                 - watch
                 type: string
               minItems: 1
-              type: array
-            ownerAndRepository:
-              minLength: 1
-              type: string
-            secretToken:
+            accessToken:
+              description: Access token for the GitHub API.
+              type: object
               properties:
                 secretKeyRef:
+                  description: A reference to a Kubernetes Secret object
+                    containing a GitHub access token.
                   type: object
+                  properties:
+                    name:
+                      description: The name of the Kubernetes Secret object
+                        which contains the GitHub access token.
+                      type: string
+                    key:
+                      description: The key which contains the GitHub access
+                        token within the Kubernetes Secret object referenced by
+                        name.
+                      type: string
+                  required:
+                  - name
+                  - key
+            secretToken:
+              description: Arbitrary token used to validate requests to
+                webhooks.
               type: object
+              properties:
+                secretKeyRef:
+                  description: A reference to a Kubernetes Secret object
+                    containing the webhook token.
+                  type: object
+                  properties:
+                    name:
+                      description: The name of the Kubernetes Secret object
+                        which contains the webhook token.
+                      type: string
+                    key:
+                      description: The key which contains the webhook token
+                        within the Kubernetes Secret object referenced by name.
+                      type: string
+                  required:
+                  - name
+                  - key
+            ceOverrides:
+              type: object
+              description: Defines overrides to control modifications of the
+                event sent to the sink.
+              properties:
+                extensions:
+                  type: object
+                  additionalProperties:
+                    type: string
+                    minLength: 1
+              required:
+              - extensions
             serviceAccountName:
               type: string
             sink:
