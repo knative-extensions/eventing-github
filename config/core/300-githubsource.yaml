@@ -62,6 +62,7 @@ metadata:
       ]
 spec:
   group: sources.knative.dev
+  version: v1alpha1
   names:
     categories:
     - all
@@ -88,18 +89,19 @@ spec:
       JSONPath: .metadata.creationTimestamp
   validation:
     openAPIV3Schema:
+      type: object
       properties:
         spec:
           properties:
-            accessToken:
-              properties:
-                secretKeyRef:
-                  type: object
-              type: object
-            ceOverrides:
-              type: object
-              description: "Defines overrides to control modifications of the event sent to the sink."
+            ownerAndRepository:
+              description: Reference to the GitHub repository to receive events
+                from, in the format user/repository.
+              type: string
+              minLength: 1
             eventTypes:
+              description: List of webhooks to enable on the selected GitHub
+                repository.
+              type: array
               items:
                 enum:
                 - check_suite
@@ -138,61 +140,94 @@ spec:
                 - watch
                 type: string
               minItems: 1
-              type: array
-            ownerAndRepository:
-              minLength: 1
-              type: string
-            secretToken:
+            accessToken:
+              description: Access token for the GitHub API.
+              type: object
               properties:
                 secretKeyRef:
+                  description: A reference to a Kubernetes Secret object
+                    containing a GitHub access token.
                   type: object
+                  properties:
+                    name:
+                      description: The name of the Kubernetes Secret object
+                        which contains the GitHub access token.
+                      type: string
+                    key:
+                      description: The key which contains the GitHub access
+                        token within the Kubernetes Secret object referenced by
+                        name.
+                      type: string
+                  required:
+                  - name
+                  - key
+            secretToken:
+              description: Arbitrary token used to validate requests to
+                webhooks.
               type: object
+              properties:
+                secretKeyRef:
+                  description: A reference to a Kubernetes Secret object
+                    containing the webhook token.
+                  type: object
+                  properties:
+                    name:
+                      description: The name of the Kubernetes Secret object
+                        which contains the webhook token.
+                      type: string
+                    key:
+                      description: The key which contains the webhook token
+                        within the Kubernetes Secret object referenced by name.
+                      type: string
+                  required:
+                  - name
+                  - key
+            ceOverrides:
+              type: object
+              description: Defines overrides to control modifications of the
+                event sent to the sink.
+              properties:
+                extensions:
+                  type: object
+                  additionalProperties:
+                    type: string
+                    minLength: 1
+              required:
+              - extensions
             serviceAccountName:
               type: string
             sink:
-              anyOf:
-              - type: object
-                description: "the destination that should receive events."
-                properties:
-                  ref:
-                    type: object
-                    description: "a reference to a Kubernetes object from which to retrieve the target URI."
-                    required:
-                    - apiVersion
-                    - kind
-                    - name
-                    properties:
-                      apiVersion:
-                        type: string
-                        minLength: 1
-                      kind:
-                        type: string
-                        minLength: 1
-                      name:
-                        type: string
-                        minLength: 1
-                  uri:
-                    type: string
-                    description: "the target URI. If ref is provided, this must be relative URI reference."
-              - type: object
-                description: "DEPRECATED: a reference to a Kubernetes object from which to retrieve the target URI."
-                required:
-                - apiVersion
-                - kind
-                - name
-                properties:
-                  apiVersion:
-                    type: string
-                    minLength: 1
-                  kind:
-                    type: string
-                    minLength: 1
-                  name:
-                    type: string
-                    minLength: 1
-                  uri:
-                    type: string
-                    description: "the target URI. If ref is provided, this must be relative URI reference."
+              description: The destination of events received from webhooks.
+              type: object
+              properties:
+                ref:
+                  description: Reference to an addressable Kubernetes object
+                    to be used as the destination of events.
+                  type: object
+                  properties:
+                    apiVersion:
+                      type: string
+                      minLength: 1
+                    kind:
+                      type: string
+                      minLength: 1
+                    namespace:
+                      type: string
+                      minLength: 1
+                    name:
+                      type: string
+                      minLength: 1
+                  required:
+                  - apiVersion
+                  - kind
+                  - name
+                uri:
+                  description: URI to use as the destination of events.
+                  type: string
+                  format: uri
+              oneOf:
+              - required: [ref]
+              - required: [uri]
           required:
           - ownerAndRepository
           - eventTypes
@@ -228,5 +263,4 @@ spec:
             webhookIDKey:
               type: string
           type: object
-  version: v1alpha1
 
