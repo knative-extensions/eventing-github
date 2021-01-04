@@ -209,6 +209,7 @@ github.com/konsorten/go-windows-terminal-sequences
 github.com/lightstep/tracecontext.go/traceparent
 github.com/lightstep/tracecontext.go/tracestate
 # github.com/mailru/easyjson v0.7.1-0.20191009090205-6c0755d89d1e
+github.com/mailru/easyjson
 github.com/mailru/easyjson/buffer
 github.com/mailru/easyjson/jlexer
 github.com/mailru/easyjson/jwriter
@@ -268,8 +269,8 @@ github.com/spf13/pflag
 # github.com/stretchr/testify v1.5.1
 github.com/stretchr/testify/assert
 github.com/stretchr/testify/require
-# github.com/tsenart/vegeta v12.7.1-0.20190725001342-b5f4fca92137+incompatible
-github.com/tsenart/vegeta/lib
+# github.com/tsenart/vegeta/v12 v12.8.4
+github.com/tsenart/vegeta/v12/lib
 # go.opencensus.io v0.22.5
 go.opencensus.io
 go.opencensus.io/internal
@@ -629,7 +630,7 @@ k8s.io/apimachinery/pkg/version
 k8s.io/apimachinery/pkg/watch
 k8s.io/apimachinery/third_party/forked/golang/json
 k8s.io/apimachinery/third_party/forked/golang/reflect
-# k8s.io/apiserver v0.18.8 => k8s.io/apiserver v0.18.8
+# k8s.io/apiserver v0.18.12 => k8s.io/apiserver v0.18.8
 k8s.io/apiserver/pkg/storage/names
 # k8s.io/client-go v11.0.1-0.20190805182717-6502b5e7b1b5+incompatible => k8s.io/client-go v0.18.8
 ## explicit
@@ -906,7 +907,7 @@ k8s.io/utils/buffer
 k8s.io/utils/integer
 k8s.io/utils/pointer
 k8s.io/utils/trace
-# knative.dev/eventing v0.19.1-0.20201214054043-ece174166d56
+# knative.dev/eventing v0.19.1-0.20201231084129-953478d67e80
 ## explicit
 knative.dev/eventing/pkg/adapter/v2
 knative.dev/eventing/pkg/adapter/v2/test
@@ -991,11 +992,11 @@ knative.dev/eventing/test/test_images/recordevents
 # knative.dev/hack v0.0.0-20201214230143-4ed1ecb8db24
 ## explicit
 knative.dev/hack
-# knative.dev/networking v0.0.0-20201213231442-54d26dd4fc50
+# knative.dev/networking v0.0.0-20201223042504-b9e08949dfbc
 knative.dev/networking/pkg
 knative.dev/networking/pkg/apis/networking
 knative.dev/networking/pkg/apis/networking/v1alpha1
-# knative.dev/pkg v0.0.0-20201215015243-0908e494c4d0
+# knative.dev/pkg v0.0.0-20201231084629-fb3dc711206a
 ## explicit
 knative.dev/pkg/apis
 knative.dev/pkg/apis/duck
@@ -1016,6 +1017,7 @@ knative.dev/pkg/codegen/cmd/injection-gen
 knative.dev/pkg/codegen/cmd/injection-gen/args
 knative.dev/pkg/codegen/cmd/injection-gen/generators
 knative.dev/pkg/configmap
+knative.dev/pkg/configmap/informer
 knative.dev/pkg/controller
 knative.dev/pkg/hack
 knative.dev/pkg/hash
@@ -1073,7 +1075,7 @@ knative.dev/pkg/webhook/psbinding
 knative.dev/pkg/webhook/resourcesemantics
 knative.dev/pkg/webhook/resourcesemantics/defaulting
 knative.dev/pkg/webhook/resourcesemantics/validation
-# knative.dev/serving v0.19.1-0.20201215013043-44aebb6b9333
+# knative.dev/serving v0.19.1-0.20210101232430-6bb7c1d825cc
 ## explicit
 knative.dev/serving/pkg/apis/autoscaling
 knative.dev/serving/pkg/apis/autoscaling/v1alpha1
