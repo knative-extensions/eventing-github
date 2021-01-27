@@ -26,8 +26,10 @@ import (
 )
 
 // GitHubSourceLister helps list GitHubSources.
+// All objects returned here must be treated as read-only.
 type GitHubSourceLister interface {
 	// List lists all GitHubSources in the indexer.
+	// Objects returned here must be treated as read-only.
 	List(selector labels.Selector) (ret []*v1alpha1.GitHubSource, err error)
 	// GitHubSources returns an object that can list and get GitHubSources.
 	GitHubSources(namespace string) GitHubSourceNamespaceLister
@@ -58,10 +60,13 @@ func (s *gitHubSourceLister) GitHubSources(namespace string) GitHubSourceNamespa
 }
 
 // GitHubSourceNamespaceLister helps list and get GitHubSources.
+// All objects returned here must be treated as read-only.
 type GitHubSourceNamespaceLister interface {
 	// List lists all GitHubSources in the indexer for a given namespace.
+	// Objects returned here must be treated as read-only.
 	List(selector labels.Selector) (ret []*v1alpha1.GitHubSource, err error)
 	// Get retrieves the GitHubSource from the indexer for a given namespace and name.
+	// Objects returned here must be treated as read-only.
 	Get(name string) (*v1alpha1.GitHubSource, error)
 	GitHubSourceNamespaceListerExpansion
 }

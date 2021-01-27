@@ -26,8 +26,10 @@ import (
 )
 
 // GitHubBindingLister helps list GitHubBindings.
+// All objects returned here must be treated as read-only.
 type GitHubBindingLister interface {
 	// List lists all GitHubBindings in the indexer.
+	// Objects returned here must be treated as read-only.
 	List(selector labels.Selector) (ret []*v1alpha1.GitHubBinding, err error)
 	// GitHubBindings returns an object that can list and get GitHubBindings.
 	GitHubBindings(namespace string) GitHubBindingNamespaceLister
@@ -58,10 +60,13 @@ func (s *gitHubBindingLister) GitHubBindings(namespace string) GitHubBindingName
 }
 
 // GitHubBindingNamespaceLister helps list and get GitHubBindings.
+// All objects returned here must be treated as read-only.
 type GitHubBindingNamespaceLister interface {
 	// List lists all GitHubBindings in the indexer for a given namespace.
+	// Objects returned here must be treated as read-only.
 	List(selector labels.Selector) (ret []*v1alpha1.GitHubBinding, err error)
 	// Get retrieves the GitHubBinding from the indexer for a given namespace and name.
+	// Objects returned here must be treated as read-only.
 	Get(name string) (*v1alpha1.GitHubBinding, error)
 	GitHubBindingNamespaceListerExpansion
 }
