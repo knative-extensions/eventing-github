@@ -1,5 +1,5 @@
 /*
-Copyright 2018 The Knative Authors
+Copyright 2021 The Knative Authors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -19,14 +19,14 @@ package v1alpha1
 import (
 	"fmt"
 
-	"knative.dev/pkg/webhook/resourcesemantics"
-
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+
 	"knative.dev/pkg/apis"
 	duckv1 "knative.dev/pkg/apis/duck/v1"
+	"knative.dev/pkg/webhook/resourcesemantics"
 )
 
 // Check that GitHubSource can be validated and can be defaulted.
@@ -107,12 +107,14 @@ const (
 	gitHubEventSourcePrefix = "https://github.com"
 )
 
-// GitHubEventType returns the GitHub CloudEvent type value.
+// GitHubEventType returns an event type emitted by a GitHubSource suitable for
+// the value of a CloudEvent's "type" context attribute.
 func GitHubEventType(ghEventType string) string {
 	return fmt.Sprintf("%s.%s", gitHubEventTypePrefix, ghEventType)
 }
 
-// GitHubEventSource returns the GitHub CloudEvent source value.
+// GitHubEventSource returns a unique representation of a GitHubSource suitable
+// for the value of a CloudEvent's "source" context attribute.
 func GitHubEventSource(ownerAndRepo string) string {
 	return fmt.Sprintf("%s/%s", gitHubEventSourcePrefix, ownerAndRepo)
 }

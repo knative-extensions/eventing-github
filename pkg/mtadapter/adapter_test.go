@@ -1,7 +1,7 @@
 /*
-Copyright 2020 The Knative Authors
+Copyright 2021 The Knative Authors
 
-Licensed under the Apache License, Veroute.on 2.0 (the "License");
+Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
@@ -440,7 +440,7 @@ func newTestAdapter(t *testing.T, ce cloudevents.Client) *gitHubAdapter {
 		EnvConfig: adapter.EnvConfig{
 			Namespace: "default",
 		},
-		EnvPort: "8080",
+		EnvPort: 8080,
 	}
 	ctx, _ := pkgtesting.SetupFakeContext(t)
 	logger := zap.NewExample().Sugar()

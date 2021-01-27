@@ -1,5 +1,5 @@
 /*
-Copyright 2020 The Knative Authors
+Copyright 2021 The Knative Authors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -23,21 +23,25 @@ import (
 
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/client-go/kubernetes"
+	clientcorev1 "k8s.io/client-go/kubernetes/typed/core/v1"
 )
 
-func SecretFrom(ctx context.Context, kubeClientSet kubernetes.Interface, namespace string, secretKeySelector *corev1.SecretKeySelector) (string, error) {
-	if secretKeySelector == nil {
-		return "", errors.New("missing secret key selector")
+// SecretFrom gets the value of the Secret key referenced by sel from the
+// Kubernetes cluster.
+func SecretFrom(ctx context.Context, secretCli clientcorev1.SecretInterface, sel *corev1.SecretKeySelector) (string, error) {
+	if sel == nil {
+		return "", errors.New("missing Secret key selector")
 	}
 
-	secret, err := kubeClientSet.CoreV1().Secrets(namespace).Get(ctx, secretKeySelector.Name, metav1.GetOptions{})
+	secret, err := secretCli.Get(ctx, sel.Name, metav1.GetOptions{})
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("getting Secret from cluster: %w", err)
 	}
-	secretVal, ok := secret.Data[secretKeySelector.Key]
+
+	secretVal, ok := secret.Data[sel.Key]
 	if !ok {
-		return "", fmt.Errorf(`key "%s" not found in secret "%s"`, secretKeySelector.Key, secretKeySelector.Name)
+		return "", fmt.Errorf("key %q not found in Secret %q", sel.Key, sel.Name)
 	}
+
 	return string(secretVal), nil
 }

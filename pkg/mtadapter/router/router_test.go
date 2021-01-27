@@ -1,5 +1,5 @@
 /*
-Copyright 2020 The Knative Authors
+Copyright 2021 The Knative Authors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package mtadapter
+package router
 
 import (
 	"io/ioutil"
@@ -24,7 +24,6 @@ import (
 	"testing"
 
 	"k8s.io/apimachinery/pkg/runtime"
-	adaptertesting "knative.dev/eventing/pkg/adapter/v2/test"
 	logtesting "knative.dev/pkg/logging/testing"
 
 	"knative.dev/eventing-github/test/lib"
@@ -33,11 +32,10 @@ import (
 
 func TestGitHubServer(t *testing.T) {
 	logger := logtesting.TestLogger(t)
-	ce := adaptertesting.NewTestClient()
 
 	objects := []runtime.Object{resources.NewGitHubSourceV1Alpha1("valid", "path")}
 	lister := lib.NewListers(objects).GetGithubSourceLister()
-	handler := NewRouter(logger, lister, ce)
+	handler := New(logger, lister)
 
 	s := httptest.NewServer(handler)
 	defer s.Close()

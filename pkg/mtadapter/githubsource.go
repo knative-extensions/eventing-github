@@ -1,5 +1,5 @@
 /*
-Copyright 2020 The Knative Authors
+Copyright 2021 The Knative Authors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -20,51 +20,57 @@ import (
 	"context"
 	"fmt"
 
-	"go.uber.org/zap"
-	"k8s.io/client-go/kubernetes"
+	cloudevents "github.com/cloudevents/sdk-go/v2"
 
+	corev1 "k8s.io/api/core/v1"
+	clientcorev1 "k8s.io/client-go/kubernetes/typed/core/v1"
+
+	"knative.dev/pkg/controller"
 	"knative.dev/pkg/logging"
-	pkgreconciler "knative.dev/pkg/reconciler"
+	"knative.dev/pkg/reconciler"
 
 	"knative.dev/eventing-github/pkg/apis/sources/v1alpha1"
 	githubsourcereconciler "knative.dev/eventing-github/pkg/client/injection/reconciler/sources/v1alpha1/githubsource"
 	"knative.dev/eventing-github/pkg/common"
+	"knative.dev/eventing-github/pkg/mtadapter/router"
 )
 
-// Reconciler updates the internal Adapter cache GitHubSources
+// Reconciler manages HTTP routes based on the GitHubSource objects in the
+// controller's cache.
 type Reconciler struct {
-	kubeClientSet kubernetes.Interface
-	router        *Router
+	secrGetter clientcorev1.SecretsGetter
+	ceClient   cloudevents.Client
+	router     *router.Router
 }
 
-// Check that our Reconciler implements ReconcileKind.
+// Check that Reconciler implements reconciler.Interface.
 var _ githubsourcereconciler.Interface = (*Reconciler)(nil)
 
-func (r *Reconciler) ReconcileKind(ctx context.Context, source *v1alpha1.GitHubSource) pkgreconciler.Event {
-	if !source.Status.IsReady() {
-		return fmt.Errorf("GitHubSource is not ready. Cannot configure the adapter")
+// ReconcileKind implements reconciler.Interface.
+func (r *Reconciler) ReconcileKind(ctx context.Context, src *v1alpha1.GitHubSource) reconciler.Event {
+	if !src.Status.IsReady() {
+		// Mark that error as permanent so we don't retry until the
+		// source's status has been updated, which automatically
+		// triggers a new reconciliation.
+		controller.NewPermanentError(reconciler.NewEvent(corev1.EventTypeWarning, "NotReady",
+			"GitHubSource is not ready yet. Skipping adapter configuration"))
 	}
 
-	reconcileErr := r.reconcile(ctx, source)
-	if reconcileErr != nil {
-		logging.FromContext(ctx).Error("Error reconciling GitHubSource", zap.Error(reconcileErr))
-	} else {
-		logging.FromContext(ctx).Debug("GitHubSource reconciled")
-	}
-	return reconcileErr
+	return r.reconcile(ctx, src)
 }
 
-func (r *Reconciler) reconcile(ctx context.Context, source *v1alpha1.GitHubSource) error {
-	secretToken, err := common.SecretFrom(ctx, r.kubeClientSet, source.Namespace, source.Spec.SecretToken.SecretKeyRef)
+func (r *Reconciler) reconcile(ctx context.Context, src *v1alpha1.GitHubSource) error {
+	secretCli := r.secrGetter.Secrets(src.Namespace)
+	secretToken, err := common.SecretFrom(ctx, secretCli, src.Spec.SecretToken.SecretKeyRef)
 	if err != nil {
-		return err
+		return fmt.Errorf("reading token from Secret: %w", err)
 	}
 
-	src := v1alpha1.GitHubEventSource(source.Spec.OwnerAndRepository)
-	adapter := common.NewHandler(r.router.ceClient, source.Status.SinkURI.String(), src, secretToken, logging.FromContext(ctx))
+	ceSrc := v1alpha1.GitHubEventSource(src.Spec.OwnerAndRepository)
+	handler := common.NewHandler(r.ceClient, src.Status.SinkURI.String(), ceSrc, secretToken, logging.FromContext(ctx))
 
-	path := fmt.Sprintf("/%s/%s", source.Namespace, source.Name)
-	r.router.Register(source.Name, source.Namespace, path, adapter)
+	path := fmt.Sprintf("/%s/%s", src.Namespace, src.Name)
+	r.router.Register(src.Name, src.Namespace, path, handler)
 
 	return nil
 }

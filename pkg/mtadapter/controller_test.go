@@ -1,5 +1,5 @@
 /*
-Copyright 2020 The Knative Authors
+Copyright 2021 The Knative Authors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -19,7 +19,8 @@ package mtadapter
 import (
 	"testing"
 
-	. "knative.dev/pkg/reconciler/testing"
+	"github.com/stretchr/testify/assert"
+	rt "knative.dev/pkg/reconciler/testing"
 
 	// Fake injection clients and informers
 	_ "knative.dev/eventing-github/pkg/client/injection/informers/sources/v1alpha1/githubsource/fake"
@@ -28,11 +29,10 @@ import (
 )
 
 func TestNew(t *testing.T) {
-	ctx, _ := SetupFakeContext(t)
+	const testComponent = "test_component"
 
-	c := NewController(ctx, nil)
+	ctx, _ := rt.SetupFakeContext(t)
 
-	if c == nil {
-		t.Fatal("Expected NewController to return a non-nil value")
-	}
+	c := NewController(testComponent)(ctx, &gitHubAdapter{})
+	assert.NotNil(t, c)
 }
