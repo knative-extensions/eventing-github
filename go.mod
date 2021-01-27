@@ -1,6 +1,6 @@
 module knative.dev/eventing-github
 
-go 1.14
+go 1.15
 
 require (
 	github.com/cloudevents/sdk-go/v2 v2.2.0
@@ -10,22 +10,13 @@ require (
 	go.uber.org/zap v1.16.0
 	golang.org/x/oauth2 v0.0.0-20201208152858-08078c50e5b5
 	gopkg.in/go-playground/webhooks.v5 v5.13.0
-	k8s.io/api v0.18.12
-	k8s.io/apimachinery v0.19.0
-	k8s.io/client-go v11.0.1-0.20190805182717-6502b5e7b1b5+incompatible
-	knative.dev/eventing v0.20.1-0.20210122083854-7123f45f3275
+	k8s.io/api v0.19.7
+	k8s.io/apimachinery v0.19.7
+	k8s.io/client-go v0.19.7
+	knative.dev/eventing v0.20.1-0.20210126110930-81ce89802f86
 	knative.dev/hack v0.0.0-20210120165453-8d623a0af457
-	knative.dev/pkg v0.0.0-20210121051653-32a3248a7121
+	knative.dev/pkg v0.0.0-20210125222030-6040b3af4803
 	knative.dev/serving v0.20.1-0.20210122011153-d0a0e3827242
 )
 
-replace (
-	github.com/googleapis/gnostic => github.com/googleapis/gnostic v0.3.1
-	github.com/prometheus/client_golang => github.com/prometheus/client_golang v0.9.2
-	k8s.io/api => k8s.io/api v0.18.8
-	k8s.io/apiextensions-apiserver => k8s.io/apiextensions-apiserver v0.18.8
-	k8s.io/apimachinery => k8s.io/apimachinery v0.18.8
-	k8s.io/apiserver => k8s.io/apiserver v0.18.8
-	k8s.io/client-go => k8s.io/client-go v0.18.8
-	k8s.io/code-generator => k8s.io/code-generator v0.18.8
-)
+replace github.com/prometheus/client_golang => github.com/prometheus/client_golang v0.9.2
