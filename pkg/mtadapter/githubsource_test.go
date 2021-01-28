@@ -26,7 +26,6 @@ import (
 
 	"knative.dev/pkg/apis"
 	fakekubeclient "knative.dev/pkg/client/injection/kube/client/fake"
-	"knative.dev/pkg/logging"
 	"knative.dev/pkg/reconciler"
 	rectesting "knative.dev/pkg/reconciler/testing"
 
@@ -75,9 +74,13 @@ func TestGitHubSource(t *testing.T) {
 			ctx, _ := rectesting.SetupFakeContext(t)
 			ctx, kubeClient := fakekubeclient.With(ctx, newSecret())
 
-			reconciler := &Reconciler{
+			mtAdapter := &gitHubAdapter{
 				secrGetter: kubeClient.CoreV1(),
-				router:     router.New(logging.FromContext(ctx), nil),
+				router:     router.New(nil),
+			}
+
+			reconciler := &Reconciler{
+				mtAdapter: mtAdapter,
 			}
 
 			event := reconciler.ReconcileKind(ctx, test.source)

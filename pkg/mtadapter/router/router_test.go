@@ -24,20 +24,17 @@ import (
 	"testing"
 
 	"k8s.io/apimachinery/pkg/runtime"
-	logtesting "knative.dev/pkg/logging/testing"
 
 	"knative.dev/eventing-github/test/lib"
 	"knative.dev/eventing-github/test/lib/resources"
 )
 
 func TestGitHubServer(t *testing.T) {
-	logger := logtesting.TestLogger(t)
-
 	objects := []runtime.Object{resources.NewGitHubSourceV1Alpha1("valid", "path")}
 	lister := lib.NewListers(objects).GetGithubSourceLister()
-	handler := New(logger, lister)
+	router := New(lister)
 
-	s := httptest.NewServer(handler)
+	s := httptest.NewServer(router)
 	defer s.Close()
 
 	// Not Found
@@ -50,7 +47,7 @@ func TestGitHubServer(t *testing.T) {
 	}
 
 	// Registered and in the indexer
-	handler.Register("valid", "path", "/valid/path", &fakeHandler{
+	router.Register("valid", "path", "/valid/path", &fakeHandler{
 		handler: sinkAccepted,
 	})
 
@@ -64,7 +61,7 @@ func TestGitHubServer(t *testing.T) {
 	}
 
 	// Registered but not in the indexer
-	handler.Register("valid-not-in-cache", "path", "/valid-not-in-cache/path", &fakeHandler{
+	router.Register("valid-not-in-cache", "path", "/valid-not-in-cache/path", &fakeHandler{
 		handler: sinkAccepted,
 	})
 
