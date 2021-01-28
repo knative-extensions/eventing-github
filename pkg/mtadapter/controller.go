@@ -1,5 +1,5 @@
 /*
-Copyright 2020 The Knative Authors
+Copyright 2021 The Knative Authors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -19,30 +19,47 @@ package mtadapter
 import (
 	"context"
 
-	githubsourceinformer "knative.dev/eventing-github/pkg/client/injection/informers/sources/v1alpha1/githubsource"
-	githubsourcereconciler "knative.dev/eventing-github/pkg/client/injection/reconciler/sources/v1alpha1/githubsource"
+	"knative.dev/eventing/pkg/adapter/v2"
 	kubeclient "knative.dev/pkg/client/injection/kube/client"
 	"knative.dev/pkg/controller"
 	"knative.dev/pkg/logging"
+
+	githubsourceinformer "knative.dev/eventing-github/pkg/client/injection/informers/sources/v1alpha1/githubsource"
+	githubsourcereconciler "knative.dev/eventing-github/pkg/client/injection/reconciler/sources/v1alpha1/githubsource"
 )
 
-// NewController initializes the controller and
-// registers event handlers to enqueue events.
-func NewController(ctx context.Context, router *Router) *controller.Impl {
-	logger := logging.FromContext(ctx)
+// NewController returns a constructor for the event source's Reconciler.
+// This constructor initializes the controller and registers event handlers to
+// enqueue events.
+func NewController(component string) adapter.ControllerConstructor {
+	return func(ctx context.Context, a adapter.Adapter) *controller.Impl {
+		ghAdapter := a.(*gitHubAdapter)
 
-	r := &Reconciler{
-		kubeClientSet: kubeclient.Get(ctx),
-		router:        router,
+		r := &Reconciler{
+			secrGetter: kubeclient.Get(ctx).CoreV1(),
+			ceClient:   ghAdapter.ceClient,
+			router:     ghAdapter.router,
+		}
+
+		impl := githubsourcereconciler.NewImpl(ctx, r, controllerOpts(component))
+
+		logging.FromContext(ctx).Info("Setting up event handlers")
+
+		// Watch for githubsource objects
+		githubsourceInformer := githubsourceinformer.Get(ctx)
+		githubsourceInformer.Informer().AddEventHandler(controller.HandleAll(impl.Enqueue))
+
+		return impl
 	}
+}
 
-	impl := githubsourcereconciler.NewImpl(ctx, r)
-
-	logger.Info("Setting up event handlers")
-
-	// Watch for githubsource objects
-	githubsourceInformer := githubsourceinformer.Get(ctx)
-	githubsourceInformer.Informer().AddEventHandler(controller.HandleAll(impl.Enqueue))
-
-	return impl
+// controllerOpts returns a callback function that sets the controller's agent
+// name and configures the reconciler to skip status updates.
+func controllerOpts(component string) controller.OptionsFn {
+	return func(impl *controller.Impl) controller.Options {
+		return controller.Options{
+			AgentName:         component,
+			SkipStatusUpdates: true,
+		}
+	}
 }

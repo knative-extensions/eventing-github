@@ -1,5 +1,5 @@
 /*
-Copyright 2020 The Knative Authors
+Copyright 2021 The Knative Authors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -18,9 +18,9 @@ package mtadapter
 
 import (
 	"fmt"
-	"reflect"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
@@ -31,6 +31,7 @@ import (
 	rectesting "knative.dev/pkg/reconciler/testing"
 
 	"knative.dev/eventing-github/pkg/apis/sources/v1alpha1"
+	"knative.dev/eventing-github/pkg/mtadapter/router"
 	"knative.dev/eventing-github/test/lib/resources"
 )
 
@@ -55,7 +56,7 @@ func TestGitHubSource(t *testing.T) {
 			name: "resource not ready valid",
 			source: resources.NewGitHubSourceV1Alpha1(testName, testNs,
 				resources.WithGitHubSourceSpecV1Alpha1(v1alpha1.GitHubSourceSpec{})),
-			expectEvent: fmt.Errorf("GitHubSource is not ready. Cannot configure the adapter"),
+			expectEvent: fmt.Errorf("reading token from Secret: missing Secret key selector"),
 		},
 		{
 			name: "valid",
@@ -74,17 +75,18 @@ func TestGitHubSource(t *testing.T) {
 			ctx, _ := rectesting.SetupFakeContext(t)
 			ctx, kubeClient := fakekubeclient.With(ctx, newSecret())
 
-			reconciler := Reconciler{
-				kubeClientSet: kubeClient,
-				router:        NewRouter(logging.FromContext(ctx), nil, nil),
+			reconciler := &Reconciler{
+				secrGetter: kubeClient.CoreV1(),
+				router:     router.New(logging.FromContext(ctx), nil),
 			}
 
 			event := reconciler.ReconcileKind(ctx, test.source)
 
-			if !reflect.DeepEqual(event, test.expectEvent) {
-				t.Errorf("Unexpected event Want %v, got %v", test.expectEvent, event)
+			if test.expectEvent == nil {
+				assert.NoError(t, event)
+			} else {
+				assert.EqualError(t, event, test.expectEvent.Error(), "Unexpected reconcile event")
 			}
-
 		})
 	}
 }

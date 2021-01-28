@@ -1,5 +1,5 @@
 /*
-Copyright 2020 The Knative Authors
+Copyright 2021 The Knative Authors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,28 +17,17 @@ limitations under the License.
 package main
 
 import (
-	"log"
-
-	"knative.dev/pkg/controller"
-
+	"knative.dev/eventing/pkg/adapter/v2"
 	"knative.dev/pkg/signals"
 
 	githubadapter "knative.dev/eventing-github/pkg/mtadapter"
-	"knative.dev/eventing/pkg/adapter/v2"
-	"knative.dev/pkg/injection"
-	"knative.dev/pkg/injection/sharedmain"
 )
 
+const component = "githubsource"
+
 func main() {
-	cfg := sharedmain.ParseAndGetConfigOrDie()
-
 	ctx := signals.NewContext()
-	ctx, informers := injection.Default.SetupInformers(ctx, cfg)
+	ctx = adapter.WithController(ctx, githubadapter.NewController(component))
 
-	log.Println("Starting informers...")
-	if err := controller.StartInformers(ctx.Done(), informers...); err != nil {
-		log.Fatalf("Failed to start informers: %v", err)
-	}
-
-	adapter.MainWithContext(ctx, "githubsource", githubadapter.NewEnvConfig, githubadapter.NewAdapter)
+	adapter.MainWithContext(ctx, component, githubadapter.NewEnvConfig, githubadapter.NewAdapter)
 }

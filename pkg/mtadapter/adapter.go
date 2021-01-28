@@ -1,5 +1,5 @@
 /*
-Copyright 2020 The Knative Authors
+Copyright 2021 The Knative Authors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -23,64 +23,61 @@ import (
 
 	cloudevents "github.com/cloudevents/sdk-go/v2"
 	"go.uber.org/zap"
+
 	"knative.dev/eventing/pkg/adapter/v2"
-	"knative.dev/pkg/controller"
 	"knative.dev/pkg/logging"
 
 	githubsourceinformer "knative.dev/eventing-github/pkg/client/injection/informers/sources/v1alpha1/githubsource"
 	"knative.dev/eventing-github/pkg/common"
+	"knative.dev/eventing-github/pkg/mtadapter/router"
 )
 
+// envConfig contains a set of configuration values injected via environment variables.
 type envConfig struct {
 	adapter.EnvConfig
 
-	// Environment variable containing the HTTP port
-	EnvPort string `envconfig:"PORT" default:"8080"`
+	// Environment variable containing the number of the HTTP port the
+	// event handler listens on.
+	EnvPort uint16 `envconfig:"PORT" default:"8080"`
 }
 
-// New EnvConfig function reads env variables defined in envConfig structure and
-// returns accessor interface
+// NewEnvConfig returns an accessor for the adapter's envConfig.
 func NewEnvConfig() adapter.EnvConfigAccessor {
 	return &envConfig{}
 }
 
-// gitHubAdapter converts incoming GitHub webhook events to CloudEvents
+// gitHubAdapter converts incoming GitHub webhook events to CloudEvents.
 type gitHubAdapter struct {
 	logger *zap.SugaredLogger
-	client cloudevents.Client
-	port   string
 
-	router     *Router
-	controller *controller.Impl
+	ceClient cloudevents.Client
+	port     uint16
+	router   *router.Router
 }
 
-// NewAdapter returns the instance of gitHubReceiveAdapter that implements adapter.Adapter interface
+// NewAdapter is a constructor for a GitHubSource receive adapter.
+// It satisfies adapter.AdapterConstructor.
 func NewAdapter(ctx context.Context, processed adapter.EnvConfigAccessor, ceClient cloudevents.Client) adapter.Adapter {
 	logger := logging.FromContext(ctx)
 	env := processed.(*envConfig)
 
-	// Setting up the server receiving GitHubEvent
 	lister := githubsourceinformer.Get(ctx).Lister()
-	router := NewRouter(logger, lister, ceClient)
+	router := router.New(logger, lister)
 
 	return &gitHubAdapter{
-		logger: logger,
-		client: ceClient,
-		port:   env.EnvPort,
+		logger:   logger,
+		ceClient: ceClient,
+		port:     env.EnvPort,
 
-		controller: NewController(ctx, router),
-		router:     router,
+		router: router,
 	}
 }
 
-// Start implements adapter.Adapter
+// Start implements adapter.Adapter.
 func (a *gitHubAdapter) Start(ctx context.Context) error {
-	a.logger.Info("Starting controllers...")
-	go controller.StartAll(ctx, a.controller)
-
 	// Start our multi-tenant server receiving GitHub events
 	server := &http.Server{
-		Addr:    ":" + a.port,
+		Addr:    fmt.Sprintf(":%d", a.port),
 		Handler: a.router,
 	}
 

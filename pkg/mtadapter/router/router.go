@@ -1,5 +1,5 @@
 /*
-Copyright 2020 The Knative Authors
+Copyright 2021 The Knative Authors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,42 +14,48 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package mtadapter
+package router
 
 import (
 	"net/http"
 	"sync"
 
-	cloudevents "github.com/cloudevents/sdk-go/v2"
 	"go.uber.org/zap"
 	"knative.dev/eventing-github/pkg/client/listers/sources/v1alpha1"
 )
 
+// keyedHandler associates a http.Handler to a source object identified by
+// namespace/name.
 type keyedHandler struct {
 	handler   http.Handler
 	namespace string
 	name      string
 }
 
-// Router holds the main GitHub webhook HTTP router and delegate to sub-routers
+// Router is a GitHub webhook router which delegates webhook events received
+// over HTTP to sub-routers.
 type Router struct {
-	logger    *zap.SugaredLogger
+	logger *zap.SugaredLogger
+
 	routersMu sync.RWMutex
 	routers   map[string]keyedHandler
-	lister    v1alpha1.GitHubSourceLister
-	ceClient  cloudevents.Client
+
+	lister v1alpha1.GitHubSourceLister
 }
 
-// NewRouter create a new GitHub webhook router receiving GitHub events
-func NewRouter(logger *zap.SugaredLogger, lister v1alpha1.GitHubSourceLister, ceClient cloudevents.Client) *Router {
+// Check that Router implements http.Handler.
+var _ http.Handler = (*Router)(nil)
+
+// New returns a new Router.
+func New(logger *zap.SugaredLogger, lister v1alpha1.GitHubSourceLister) *Router {
 	return &Router{
-		logger:   logger,
-		routers:  make(map[string]keyedHandler),
-		lister:   lister,
-		ceClient: ceClient,
+		logger:  logger,
+		routers: make(map[string]keyedHandler),
+		lister:  lister,
 	}
 }
 
+// ServeHTTP implements http.Handler.
 func (h *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// Path-based dispatch
 	h.routersMu.RLock()
@@ -69,7 +75,7 @@ func (h *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	http.NotFoundHandler().ServeHTTP(w, r)
 }
 
-// Register adds a new Github event handler for the given GitHubSource
+// Register adds a new GitHub event handler for the given GitHubSource.
 func (h *Router) Register(name, namespace, path string, handler http.Handler) {
 	h.routersMu.Lock()
 	defer h.routersMu.Unlock()
@@ -80,7 +86,7 @@ func (h *Router) Register(name, namespace, path string, handler http.Handler) {
 	}
 }
 
-// Unregister removes the GitHubSource served at the given path
+// Unregister removes the GitHubSource served at the given path.
 func (h *Router) Unregister(path string) {
 	h.routersMu.Lock()
 	defer h.routersMu.Unlock()

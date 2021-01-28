@@ -7,6 +7,7 @@ require (
 	github.com/google/go-cmp v0.5.4
 	github.com/google/go-github/v31 v31.0.0
 	github.com/kelseyhightower/envconfig v1.4.0
+	github.com/stretchr/testify v1.6.1
 	go.uber.org/zap v1.16.0
 	golang.org/x/oauth2 v0.0.0-20201208152858-08078c50e5b5
 	gopkg.in/go-playground/webhooks.v5 v5.13.0
