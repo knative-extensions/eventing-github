@@ -20,7 +20,6 @@ import (
 	"net/http"
 	"sync"
 
-	"go.uber.org/zap"
 	"knative.dev/eventing-github/pkg/client/listers/sources/v1alpha1"
 )
 
@@ -35,8 +34,6 @@ type keyedHandler struct {
 // Router is a GitHub webhook router which delegates webhook events received
 // over HTTP to sub-routers.
 type Router struct {
-	logger *zap.SugaredLogger
-
 	routersMu sync.RWMutex
 	routers   map[string]keyedHandler
 
@@ -47,9 +44,8 @@ type Router struct {
 var _ http.Handler = (*Router)(nil)
 
 // New returns a new Router.
-func New(logger *zap.SugaredLogger, lister v1alpha1.GitHubSourceLister) *Router {
+func New(lister v1alpha1.GitHubSourceLister) *Router {
 	return &Router{
-		logger:  logger,
 		routers: make(map[string]keyedHandler),
 		lister:  lister,
 	}

@@ -20,7 +20,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	rt "knative.dev/pkg/reconciler/testing"
+	rectesting "knative.dev/pkg/reconciler/testing"
 
 	// Fake injection clients and informers
 	_ "knative.dev/eventing-github/pkg/client/injection/informers/sources/v1alpha1/githubsource/fake"
@@ -31,7 +31,7 @@ import (
 func TestNew(t *testing.T) {
 	const testComponent = "test_component"
 
-	ctx, _ := rt.SetupFakeContext(t)
+	ctx, _ := rectesting.SetupFakeContext(t)
 
 	c := NewController(testComponent)(ctx, &gitHubAdapter{})
 	assert.NotNil(t, c)

@@ -20,25 +20,28 @@ import (
 	"context"
 
 	"knative.dev/eventing/pkg/adapter/v2"
-	kubeclient "knative.dev/pkg/client/injection/kube/client"
 	"knative.dev/pkg/controller"
 	"knative.dev/pkg/logging"
 
+	"knative.dev/eventing-github/pkg/apis/sources/v1alpha1"
 	githubsourceinformer "knative.dev/eventing-github/pkg/client/injection/informers/sources/v1alpha1/githubsource"
 	githubsourcereconciler "knative.dev/eventing-github/pkg/client/injection/reconciler/sources/v1alpha1/githubsource"
 )
+
+// MTAdapter allows the multi-tenant adapter to expose methods the reconciler
+// can call while reconciling a source object.
+type MTAdapter interface {
+	// Registers a HTTP handler for the given source.
+	RegisterHandlerFor(context.Context, *v1alpha1.GitHubSource) error
+}
 
 // NewController returns a constructor for the event source's Reconciler.
 // This constructor initializes the controller and registers event handlers to
 // enqueue events.
 func NewController(component string) adapter.ControllerConstructor {
 	return func(ctx context.Context, a adapter.Adapter) *controller.Impl {
-		ghAdapter := a.(*gitHubAdapter)
-
 		r := &Reconciler{
-			secrGetter: kubeclient.Get(ctx).CoreV1(),
-			ceClient:   ghAdapter.ceClient,
-			router:     ghAdapter.router,
+			mtAdapter: a.(MTAdapter),
 		}
 
 		impl := githubsourcereconciler.NewImpl(ctx, r, controllerOpts(component))

@@ -24,10 +24,14 @@ import (
 	cloudevents "github.com/cloudevents/sdk-go/v2"
 	"go.uber.org/zap"
 
+	clientcorev1 "k8s.io/client-go/kubernetes/typed/core/v1"
+
 	"knative.dev/eventing/pkg/adapter/v2"
+	kubeclient "knative.dev/pkg/client/injection/kube/client"
 	"knative.dev/pkg/logging"
 
-	githubsourceinformer "knative.dev/eventing-github/pkg/client/injection/informers/sources/v1alpha1/githubsource"
+	"knative.dev/eventing-github/pkg/apis/sources/v1alpha1"
+	informer "knative.dev/eventing-github/pkg/client/injection/informers/sources/v1alpha1/githubsource"
 	"knative.dev/eventing-github/pkg/common"
 	"knative.dev/eventing-github/pkg/mtadapter/router"
 )
@@ -53,23 +57,29 @@ type gitHubAdapter struct {
 	ceClient cloudevents.Client
 	port     uint16
 	router   *router.Router
+
+	secrGetter clientcorev1.SecretsGetter
 }
+
+// Check the interfaces the adapter should implement.
+var (
+	_ adapter.Adapter = (*gitHubAdapter)(nil)
+	_ MTAdapter       = (*gitHubAdapter)(nil)
+)
 
 // NewAdapter is a constructor for a GitHubSource receive adapter.
 // It satisfies adapter.AdapterConstructor.
 func NewAdapter(ctx context.Context, processed adapter.EnvConfigAccessor, ceClient cloudevents.Client) adapter.Adapter {
-	logger := logging.FromContext(ctx)
 	env := processed.(*envConfig)
 
-	lister := githubsourceinformer.Get(ctx).Lister()
-	router := router.New(logger, lister)
-
 	return &gitHubAdapter{
-		logger:   logger,
+		logger: logging.FromContext(ctx),
+
 		ceClient: ceClient,
 		port:     env.EnvPort,
+		router:   router.New(informer.Get(ctx).Lister()),
 
-		router: router,
+		secrGetter: kubeclient.Get(ctx).CoreV1(),
 	}
 }
 
@@ -91,5 +101,23 @@ func (a *gitHubAdapter) Start(ctx context.Context) error {
 
 	<-done
 	a.logger.Infof("Server stopped")
+	return nil
+}
+
+// RegisterHandlerFor implements MTAdapter.
+func (a *gitHubAdapter) RegisterHandlerFor(ctx context.Context, src *v1alpha1.GitHubSource) error {
+	secretCli := a.secrGetter.Secrets(src.Namespace)
+	secretToken, err := common.SecretFrom(ctx, secretCli, src.Spec.SecretToken.SecretKeyRef)
+	if err != nil {
+		return fmt.Errorf("reading token from Secret: %w", err)
+	}
+
+	logger := logging.FromContext(ctx)
+	ceSrc := v1alpha1.GitHubEventSource(src.Spec.OwnerAndRepository)
+	handler := common.NewHandler(a.ceClient, src.Status.SinkURI.String(), ceSrc, secretToken, logger)
+
+	path := fmt.Sprintf("/%s/%s", src.Namespace, src.Name)
+	a.router.Register(src.Name, src.Namespace, path, handler)
+
 	return nil
 }
