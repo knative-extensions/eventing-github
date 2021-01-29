@@ -43,7 +43,7 @@ func (r *Reconciler) ReconcileKind(ctx context.Context, src *v1alpha1.GitHubSour
 		// Mark that error as permanent so we don't retry until the
 		// source's status has been updated, which automatically
 		// triggers a new reconciliation.
-		controller.NewPermanentError(reconciler.NewEvent(corev1.EventTypeWarning, "NotReady",
+		return controller.NewPermanentError(reconciler.NewEvent(corev1.EventTypeWarning, "NotReady",
 			"GitHubSource is not ready yet. Skipping adapter configuration"))
 	}
 
