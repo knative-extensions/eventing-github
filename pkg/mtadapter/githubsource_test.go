@@ -55,6 +55,16 @@ func TestGitHubSource(t *testing.T) {
 			name: "resource not ready valid",
 			source: resources.NewGitHubSourceV1Alpha1(testName, testNs,
 				resources.WithGitHubSourceSpecV1Alpha1(v1alpha1.GitHubSourceSpec{})),
+			expectEvent: fmt.Errorf("GitHubSource is not ready yet. Skipping adapter configuration"),
+		},
+		{
+			name: "secret ref missing",
+			source: resources.NewGitHubSourceV1Alpha1(testName, testNs,
+				resources.WithGitHubSourceSpecV1Alpha1(v1alpha1.GitHubSourceSpec{}),
+				resources.WithGithubSourceConditionsV1Alpha1,
+				resources.WithGithubSourceSecretV1Alpha1,
+				resources.WithGithubSourceWebHookConfiguredV1Alpha1,
+				resources.WithGithubSourceSinkV1Alpha1(&testSink)),
 			expectEvent: fmt.Errorf("reading token from Secret: missing Secret key selector"),
 		},
 		{
