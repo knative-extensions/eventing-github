@@ -95,13 +95,17 @@ func (h *Handler) handleEvent(ctx context.Context, payload interface{}, hdr http
 	h.Logger.Infof("Handling %s", gitHubEventType)
 
 	cloudEventType := sourcesv1alpha1.GitHubEventType(gitHubEventType)
-	subject := SubjectFromGitHubEvent(gh.Event(gitHubEventType), payload, h.Logger)
+	subject, extensions := SubjectAndExtensionsFromGitHubEvent(gh.Event(gitHubEventType), payload, h.Logger)
 
 	event := cloudevents.NewEvent()
 	event.SetID(eventID)
 	event.SetType(cloudEventType)
 	event.SetSource(h.Source)
 	event.SetSubject(subject)
+	for k, v := range extensions {
+		event.SetExtension(k, v)
+	}
+
 	if err := event.SetData(cloudevents.ApplicationJSON, payload); err != nil {
 		return fmt.Errorf("failed to marshal event data: %w", err)
 	}
