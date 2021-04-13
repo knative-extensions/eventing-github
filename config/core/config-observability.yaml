@@ -17,6 +17,9 @@ kind: ConfigMap
 metadata:
   name: config-observability
   namespace: knative-sources
+  labels:
+    eventing.knative.dev/release: devel
+    contrib.eventing.knative.dev/source-provider: github
 data:
   _example: |
     ################################

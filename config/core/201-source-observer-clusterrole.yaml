@@ -22,6 +22,7 @@ metadata:
   labels:
     eventing.knative.dev/release: devel
     duck.knative.dev/source: "true"
+    contrib.eventing.knative.dev/source-provider: github
 rules:
   - apiGroups:
       - "sources.knative.dev"

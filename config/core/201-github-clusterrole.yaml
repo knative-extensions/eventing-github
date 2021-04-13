@@ -18,6 +18,7 @@ metadata:
   name: eventing-sources-github-controller
   labels:
     contrib.eventing.knative.dev/release: devel
+    contrib.eventing.knative.dev/source-provider: github
 rules:
 # Sources admin
 - apiGroups:

@@ -20,6 +20,7 @@ metadata:
   labels:
     contrib.eventing.knative.dev/release: devel
     control-plane: github-controller-manager
+    contrib.eventing.knative.dev/source-provider: github
 spec:
   selector:
     control-plane: github-controller-manager

@@ -19,6 +19,7 @@ metadata:
     contrib.eventing.knative.dev/release: devel
     duck.knative.dev/binding: "true"
     knative.dev/crd-install: "true"
+    contrib.eventing.knative.dev/source-provider: github
   name: githubbindings.bindings.knative.dev
 spec:
   group: bindings.knative.dev

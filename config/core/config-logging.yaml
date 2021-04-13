@@ -17,6 +17,9 @@ kind: ConfigMap
 metadata:
   name: config-logging
   namespace: knative-sources
+  labels:
+    eventing.knative.dev/release: devel
+    contrib.eventing.knative.dev/source-provider: github
 data:
   # Common configuration for all Knative codebase
   zap-logger-config: |
