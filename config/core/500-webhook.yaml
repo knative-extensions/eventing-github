@@ -19,7 +19,7 @@ metadata:
   namespace: knative-sources
   labels:
     contrib.eventing.knative.dev/release: devel
-    contrib.eventing.knative.dev/source-provider: github
+    sources.knative.dev/service: github
 spec:
   replicas: 1
   selector:
@@ -70,7 +70,7 @@ metadata:
   labels:
     eventing.knative.dev/release: devel
     role: github-webhook
-    contrib.eventing.knative.dev/source-provider: github
+    sources.knative.dev/service: github
   name: github-webhook
   namespace: knative-sources
 spec:

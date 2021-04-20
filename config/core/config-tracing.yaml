@@ -21,7 +21,7 @@ metadata:
     eventing.knative.dev/release: devel
     knative.dev/config-propagation: original
     knative.dev/config-category: eventing
-    contrib.eventing.knative.dev/source-provider: github
+    sources.knative.dev/service: github
 data:
   _example: |
     ################################

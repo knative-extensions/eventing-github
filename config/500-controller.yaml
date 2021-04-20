@@ -20,7 +20,7 @@ metadata:
   labels:
     contrib.eventing.knative.dev/release: devel
     control-plane: github-controller-manager
-    contrib.eventing.knative.dev/source-provider: github
+    sources.knative.dev/service: github
 spec:
   selector:
     matchLabels: &labels

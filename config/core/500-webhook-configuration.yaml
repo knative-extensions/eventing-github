@@ -18,7 +18,7 @@ metadata:
   name: defaulting.webhook.github.sources.knative.dev
   labels:
     contrib.eventing.knative.dev/release: devel
-    contrib.eventing.knative.dev/source-provider: github
+    sources.knative.dev/service: github
 webhooks:
 - admissionReviewVersions:
   - v1beta1
@@ -35,7 +35,7 @@ metadata:
   name: validation.webhook.github.sources.knative.dev
   labels:
     contrib.eventing.knative.dev/release: devel
-    contrib.eventing.knative.dev/source-provider: github
+    sources.knative.dev/service: github
 webhooks:
 - admissionReviewVersions:
   - v1beta1
@@ -52,7 +52,7 @@ metadata:
   name: githubbindings.webhook.github.sources.knative.dev
   labels:
     samples.knative.dev/release: devel
-    contrib.eventing.knative.dev/source-provider: github
+    sources.knative.dev/service: github
 webhooks:
 - admissionReviewVersions:
   - v1beta1
@@ -70,5 +70,5 @@ metadata:
   namespace: knative-sources
   labels:
     contrib.eventing.knative.dev/release: devel
-    contrib.eventing.knative.dev/source-provider: github
+    sources.knative.dev/service: github
 # The data is populated at install time.

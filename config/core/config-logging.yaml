@@ -19,7 +19,7 @@ metadata:
   namespace: knative-sources
   labels:
     eventing.knative.dev/release: devel
-    contrib.eventing.knative.dev/source-provider: github
+    sources.knative.dev/service: github
 data:
   # Common configuration for all Knative codebase
   zap-logger-config: |
