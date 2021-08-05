@@ -10,14 +10,15 @@ require (
 	github.com/stretchr/testify v1.7.0
 	go.uber.org/zap v1.18.1
 	golang.org/x/oauth2 v0.0.0-20210628180205-a41e5a781914
+	gonum.org/v1/netlib v0.0.0-20190331212654-76723241ea4e // indirect
 	gopkg.in/go-playground/webhooks.v5 v5.13.0
 	k8s.io/api v0.20.7
 	k8s.io/apimachinery v0.20.7
 	k8s.io/client-go v0.20.7
-	knative.dev/eventing v0.24.1-0.20210719220411-48112db95a4d
+	knative.dev/eventing v0.24.1-0.20210805053652-85516254d10c
 	knative.dev/hack v0.0.0-20210622141627-e28525d8d260
-	knative.dev/pkg v0.0.0-20210715175632-d9b7180af6f2
-	knative.dev/serving v0.24.1-0.20210719171254-2575a92d1484
+	knative.dev/pkg v0.0.0-20210803160015-21eb4c167cc5
+	knative.dev/serving v0.24.1-0.20210805130859-cbbffd95b5c5
 )
 
 replace github.com/prometheus/client_golang => github.com/prometheus/client_golang v0.9.2
