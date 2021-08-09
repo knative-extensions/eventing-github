@@ -332,8 +332,6 @@ golang.org/x/xerrors
 golang.org/x/xerrors/internal
 # gomodules.xyz/jsonpatch/v2 v2.2.0
 gomodules.xyz/jsonpatch/v2
-# gonum.org/v1/netlib v0.0.0-20190331212654-76723241ea4e
-## explicit
 # google.golang.org/api v0.50.0
 google.golang.org/api/googleapi
 google.golang.org/api/googleapi/transport

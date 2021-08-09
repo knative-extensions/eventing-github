@@ -1,6 +1,6 @@
 module knative.dev/eventing-github
 
-go 1.15
+go 1.16
 
 require (
 	github.com/cloudevents/sdk-go/v2 v2.4.1
@@ -10,7 +10,6 @@ require (
 	github.com/stretchr/testify v1.7.0
 	go.uber.org/zap v1.18.1
 	golang.org/x/oauth2 v0.0.0-20210628180205-a41e5a781914
-	gonum.org/v1/netlib v0.0.0-20190331212654-76723241ea4e // indirect
 	gopkg.in/go-playground/webhooks.v5 v5.13.0
 	k8s.io/api v0.20.7
 	k8s.io/apimachinery v0.20.7
