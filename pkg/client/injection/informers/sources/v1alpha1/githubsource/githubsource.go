@@ -21,8 +21,15 @@ package githubsource
 import (
 	context "context"
 
+	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	labels "k8s.io/apimachinery/pkg/labels"
+	cache "k8s.io/client-go/tools/cache"
+	apissourcesv1alpha1 "knative.dev/eventing-github/pkg/apis/sources/v1alpha1"
+	versioned "knative.dev/eventing-github/pkg/client/clientset/versioned"
 	v1alpha1 "knative.dev/eventing-github/pkg/client/informers/externalversions/sources/v1alpha1"
+	client "knative.dev/eventing-github/pkg/client/injection/client"
 	factory "knative.dev/eventing-github/pkg/client/injection/informers/factory"
+	sourcesv1alpha1 "knative.dev/eventing-github/pkg/client/listers/sources/v1alpha1"
 	controller "knative.dev/pkg/controller"
 	injection "knative.dev/pkg/injection"
 	logging "knative.dev/pkg/logging"
@@ -30,6 +37,7 @@ import (
 
 func init() {
 	injection.Default.RegisterInformer(withInformer)
+	injection.Dynamic.RegisterDynamicInformer(withDynamicInformer)
 }
 
 // Key is used for associating the Informer inside the context.Context.
@@ -41,6 +49,11 @@ func withInformer(ctx context.Context) (context.Context, controller.Informer) {
 	return context.WithValue(ctx, Key{}, inf), inf.Informer()
 }
 
+func withDynamicInformer(ctx context.Context) context.Context {
+	inf := &wrapper{client: client.Get(ctx)}
+	return context.WithValue(ctx, Key{}, inf)
+}
+
 // Get extracts the typed informer from the context.
 func Get(ctx context.Context) v1alpha1.GitHubSourceInformer {
 	untyped := ctx.Value(Key{})
@@ -49,4 +62,45 @@ func Get(ctx context.Context) v1alpha1.GitHubSourceInformer {
 			"Unable to fetch knative.dev/eventing-github/pkg/client/informers/externalversions/sources/v1alpha1.GitHubSourceInformer from context.")
 	}
 	return untyped.(v1alpha1.GitHubSourceInformer)
+}
+
+type wrapper struct {
+	client versioned.Interface
+
+	namespace string
+}
+
+var _ v1alpha1.GitHubSourceInformer = (*wrapper)(nil)
+var _ sourcesv1alpha1.GitHubSourceLister = (*wrapper)(nil)
+
+func (w *wrapper) Informer() cache.SharedIndexInformer {
+	return cache.NewSharedIndexInformer(nil, &apissourcesv1alpha1.GitHubSource{}, 0, nil)
+}
+
+func (w *wrapper) Lister() sourcesv1alpha1.GitHubSourceLister {
+	return w
+}
+
+func (w *wrapper) GitHubSources(namespace string) sourcesv1alpha1.GitHubSourceNamespaceLister {
+	return &wrapper{client: w.client, namespace: namespace}
+}
+
+func (w *wrapper) List(selector labels.Selector) (ret []*apissourcesv1alpha1.GitHubSource, err error) {
+	lo, err := w.client.SourcesV1alpha1().GitHubSources(w.namespace).List(context.TODO(), v1.ListOptions{
+		LabelSelector: selector.String(),
+		// TODO(mattmoor): Incorporate resourceVersion bounds based on staleness criteria.
+	})
+	if err != nil {
+		return nil, err
+	}
+	for idx := range lo.Items {
+		ret = append(ret, &lo.Items[idx])
+	}
+	return ret, nil
+}
+
+func (w *wrapper) Get(name string) (*apissourcesv1alpha1.GitHubSource, error) {
+	return w.client.SourcesV1alpha1().GitHubSources(w.namespace).Get(context.TODO(), name, v1.GetOptions{
+		// TODO(mattmoor): Incorporate resourceVersion bounds based on staleness criteria.
+	})
 }
