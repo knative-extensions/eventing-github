@@ -81,9 +81,10 @@ func NewController(
 			scheme.Scheme, corev1.EventSource{Component: controllerAgentName}),
 		NamespaceLister: namespaceInformer.Lister(),
 	}
-	impl := controller.NewImpl(c, logger, "GitHubBindings")
-
-	logger.Info("Setting up event handlers")
+	impl := controller.NewContext(ctx, c, controller.ControllerOptions{
+		Logger:        logger,
+		WorkQueueName: "GitHubBindings",
+	})
 
 	ghbInformer.Informer().AddEventHandler(controller.HandleAll(impl.Enqueue))
 	namespaceInformer.Informer().AddEventHandler(controller.HandleAll(impl.Enqueue))
