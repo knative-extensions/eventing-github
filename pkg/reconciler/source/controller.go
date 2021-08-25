@@ -21,8 +21,6 @@ import (
 
 	"knative.dev/pkg/system"
 
-	"knative.dev/pkg/tracker"
-
 	"github.com/kelseyhightower/envconfig"
 
 	//k8s.io imports
@@ -71,9 +69,7 @@ func NewController(ctx context.Context, _ configmap.Watcher) *controller.Impl {
 	}
 	impl := ghreconciler.NewImpl(ctx, r)
 
-	r.sinkResolver = resolver.NewURIResolver(ctx, impl.EnqueueKey)
-
-	logging.FromContext(ctx).Info("Setting up GitHub event handlers")
+	r.sinkResolver = resolver.NewURIResolverFromTracker(ctx, impl.Tracker)
 
 	// Watch for changes from any GitHubSource object
 	githubInformer.Informer().AddEventHandler(controller.HandleAll(impl.Enqueue))
@@ -81,7 +77,7 @@ func NewController(ctx context.Context, _ configmap.Watcher) *controller.Impl {
 	if r.receiveAdapterImage == "" {
 		// Tracker is used to notify us that the mt receive adapter has changed so that
 		// we can reconcile all GitHubSources that depends on it
-		r.tracker = tracker.New(impl.EnqueueKey, controller.GetTrackerLease(ctx))
+		r.tracker = impl.Tracker
 
 		// Watch for changes from the multi-tenant receive adapter
 		serviceInformer.Informer().AddEventHandler(cache.FilteringResourceEventHandler{
@@ -91,7 +87,7 @@ func NewController(ctx context.Context, _ configmap.Watcher) *controller.Impl {
 	} else {
 		// Watch for changes from any Knative service owned by a GitHubSource
 		serviceInformer.Informer().AddEventHandler(cache.FilteringResourceEventHandler{
-			FilterFunc: controller.FilterControllerGK(v1alpha1.Kind("GitHubSource")),
+			FilterFunc: controller.FilterController(&v1alpha1.GitHubSource{}),
 			Handler:    controller.HandleAll(impl.EnqueueControllerOf),
 		})
 	}
