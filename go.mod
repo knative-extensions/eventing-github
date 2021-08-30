@@ -8,16 +8,16 @@ require (
 	github.com/google/go-github/v31 v31.0.0
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/stretchr/testify v1.7.0
-	go.uber.org/zap v1.18.1
-	golang.org/x/oauth2 v0.0.0-20210628180205-a41e5a781914
+	go.uber.org/zap v1.19.0
+	golang.org/x/oauth2 v0.0.0-20210819190943-2bc19b11175f
 	gopkg.in/go-playground/webhooks.v5 v5.13.0
-	k8s.io/api v0.20.7
-	k8s.io/apimachinery v0.20.7
-	k8s.io/client-go v0.20.7
-	knative.dev/eventing v0.25.1-0.20210825092225-5a0aa5d10404
+	k8s.io/api v0.21.4
+	k8s.io/apimachinery v0.21.4
+	k8s.io/client-go v0.21.4
+	knative.dev/eventing v0.25.1-0.20210827141738-ea5ed9adf51f
 	knative.dev/hack v0.0.0-20210806075220-815cd312d65c
-	knative.dev/pkg v0.0.0-20210825070025-a70bb26767b8
-	knative.dev/serving v0.25.1-0.20210825105825-0bb84999da97
+	knative.dev/pkg v0.0.0-20210827184538-2bd91f75571c
+	knative.dev/serving v0.25.1-0.20210827140938-e6a7166509e6
 )
 
 replace github.com/prometheus/client_golang => github.com/prometheus/client_golang v0.9.2
