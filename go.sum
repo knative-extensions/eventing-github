@@ -1613,8 +1613,8 @@ k8s.io/utils v0.0.0-20201110183641-67b214c5f920/go.mod h1:jPW/WVKK9YHAvNhRxK0md/
 k8s.io/utils v0.0.0-20210111153108-fddb29f9d009 h1:0T5IaWHO3sJTEmCP6mUlBvMukxPKUQWqiI/YuiBNMiQ=
 k8s.io/utils v0.0.0-20210111153108-fddb29f9d009/go.mod h1:jPW/WVKK9YHAvNhRxK0md/EJ228hCsBRufyofKtW8HA=
 knative.dev/caching v0.0.0-20211206133228-c29dc56d8f03/go.mod h1:xki+LBTL1riXSoU2dKznqUfgOlQ2eO/F1WF+GMXxH0k=
-knative.dev/eventing v0.27.1-0.20211210065528-5601111ebbc4 h1:qh32/XL4ziq/Q0njGb/PylHqrz0MgsWhtS+QxTouu58=
-knative.dev/eventing v0.27.1-0.20211210065528-5601111ebbc4/go.mod h1:zxoB37kQxEkfCvKA7wZuHOPYInz6SFJzrhmG9IAd/iY=
+knative.dev/eventing v0.28.0 h1:uRCwAuPewZEZbhPV/+QHhXrkisWW2ViyWRf6NuaBvMY=
+knative.dev/eventing v0.28.0/go.mod h1:zxoB37kQxEkfCvKA7wZuHOPYInz6SFJzrhmG9IAd/iY=
 knative.dev/hack v0.0.0-20211122162614-813559cefdda/go.mod h1:PHt8x8yX5Z9pPquBEfIj0X66f8iWkWfR0S/sarACJrI=
 knative.dev/hack v0.0.0-20211203062838-e11ac125e707 h1:Nx3HBoTHjYzXT9xxh5j6A8pMapNqyDLqjl784YxWPDQ=
 knative.dev/hack v0.0.0-20211203062838-e11ac125e707/go.mod h1:PHt8x8yX5Z9pPquBEfIj0X66f8iWkWfR0S/sarACJrI=
@@ -1624,8 +1624,8 @@ knative.dev/networking v0.0.0-20211209101835-8ef631418fc0/go.mod h1:+ozCw7PVf//G
 knative.dev/pkg v0.0.0-20211206113427-18589ac7627e h1:8hK7g4jz56ZtF3iQLsvrvR/hHnP5ZWLSxLnyYMbfxwY=
 knative.dev/pkg v0.0.0-20211206113427-18589ac7627e/go.mod h1:E6B4RTjZyxe55a0kxOlnEHEl71zuG7gghnqYvNBKwBw=
 knative.dev/reconciler-test v0.0.0-20211207070557-0d138a88867b/go.mod h1:dCq1Fuu+eUISdnxABMvoDhefF91DYwE6O3rTYTraXbw=
-knative.dev/serving v0.27.1-0.20211210151429-7ac9d5d59adf h1:qiEdjK2IIo1vba+NptCr+iRNshguoH1lzi5vOXaMIuQ=
-knative.dev/serving v0.27.1-0.20211210151429-7ac9d5d59adf/go.mod h1:1d8YYUu0hY19KlIRs2SgAn/o64Hr265+3fhOtV3FFVA=
+knative.dev/serving v0.28.0 h1:Uqc2sSmYkRP3OC5q/jN+Wp7CMGCGVuMe3V4jKct4Xvw=
+knative.dev/serving v0.28.0/go.mod h1:1d8YYUu0hY19KlIRs2SgAn/o64Hr265+3fhOtV3FFVA=
 pgregory.net/rapid v0.3.3 h1:jCjBsY4ln4Atz78QoBWxUEvAHaFyNDQg9+WU62aCn1U=
 pgregory.net/rapid v0.3.3/go.mod h1:UYpPVyjFHzYBGHIxLFoupi8vwk6rXNzRY9OMvVxFIOU=
 rsc.io/binaryregexp v0.2.0/go.mod h1:qTv7/COck+e2FymRvadv62gMdZztPaShugOCi3I+8D8=
