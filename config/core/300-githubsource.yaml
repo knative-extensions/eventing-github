@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apiVersion: apiextensions.k8s.io/v1beta1
+apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: githubsources.sources.knative.dev
@@ -62,7 +62,6 @@ metadata:
       ]
 spec:
   group: sources.knative.dev
-  version: v1alpha1
   names:
     categories:
     - all
@@ -72,195 +71,199 @@ spec:
     kind: GitHubSource
     plural: githubsources
   scope: Namespaced
-  subresources:
-    status: {}
-  additionalPrinterColumns:
-    - name: Ready
-      type: string
-      JSONPath: ".status.conditions[?(@.type=='Ready')].status"
-    - name: Reason
-      type: string
-      JSONPath: ".status.conditions[?(@.type=='Ready')].reason"
-    - name: Sink
-      type: string
-      JSONPath: ".status.sinkUri"
-    - name: Age
-      type: date
-      JSONPath: .metadata.creationTimestamp
-  validation:
-    openAPIV3Schema:
-      type: object
-      properties:
-        spec:
+  versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+      subresources:
+        status: {}
+      additionalPrinterColumns:
+        - name: Ready
+          type: string
+          jsonPath: ".status.conditions[?(@.type=='Ready')].status"
+        - name: Reason
+          type: string
+          jsonPath: ".status.conditions[?(@.type=='Ready')].reason"
+        - name: Sink
+          type: string
+          jsonPath: ".status.sinkUri"
+        - name: Age
+          type: date
+          jsonPath: .metadata.creationTimestamp
+      schema:
+        openAPIV3Schema:
+          type: object
           properties:
-            ownerAndRepository:
-              description: Reference to the GitHub repository to receive events
-                from, in the format user/repository.
-              type: string
-              minLength: 1
-            eventTypes:
-              description: List of webhooks to enable on the selected GitHub
-                repository.
-              type: array
-              items:
-                enum:
-                - check_suite
-                - commit_comment
-                - create
-                - delete
-                - deployment
-                - deployment_status
-                - fork
-                - gollum
-                - installation
-                - integration_installation
-                - issue_comment
-                - issues
-                - label
-                - member
-                - membership
-                - milestone
-                - organization
-                - org_block
-                - page_build
-                - ping
-                - project_card
-                - project_column
-                - project
-                - public
-                - pull_request
-                - pull_request_review
-                - pull_request_review_comment
-                - push
-                - release
-                - repository
-                - status
-                - team
-                - team_add
-                - watch
-                type: string
-              minItems: 1
-            accessToken:
-              description: Access token for the GitHub API.
-              type: object
+            spec:
               properties:
-                secretKeyRef:
-                  description: A reference to a Kubernetes Secret object
-                    containing a GitHub access token.
-                  type: object
-                  properties:
-                    name:
-                      description: The name of the Kubernetes Secret object
-                        which contains the GitHub access token.
-                      type: string
-                    key:
-                      description: The key which contains the GitHub access
-                        token within the Kubernetes Secret object referenced by
-                        name.
-                      type: string
-                  required:
-                  - name
-                  - key
-            secretToken:
-              description: Arbitrary token used to validate requests to
-                webhooks.
-              type: object
-              properties:
-                secretKeyRef:
-                  description: A reference to a Kubernetes Secret object
-                    containing the webhook token.
-                  type: object
-                  properties:
-                    name:
-                      description: The name of the Kubernetes Secret object
-                        which contains the webhook token.
-                      type: string
-                    key:
-                      description: The key which contains the webhook token
-                        within the Kubernetes Secret object referenced by name.
-                      type: string
-                  required:
-                  - name
-                  - key
-            ceOverrides:
-              type: object
-              description: Defines overrides to control modifications of the
-                event sent to the sink.
-              properties:
-                extensions:
-                  type: object
-                  additionalProperties:
-                    type: string
-                    minLength: 1
-              required:
-              - extensions
-            serviceAccountName:
-              type: string
-            sink:
-              description: The destination of events received from webhooks.
-              type: object
-              properties:
-                ref:
-                  description: Reference to an addressable Kubernetes object
-                    to be used as the destination of events.
-                  type: object
-                  properties:
-                    apiVersion:
-                      type: string
-                      minLength: 1
-                    kind:
-                      type: string
-                      minLength: 1
-                    namespace:
-                      type: string
-                      minLength: 1
-                    name:
-                      type: string
-                      minLength: 1
-                  required:
-                  - apiVersion
-                  - kind
-                  - name
-                uri:
-                  description: URI to use as the destination of events.
+                ownerAndRepository:
+                  description: Reference to the GitHub repository to receive events
+                    from, in the format user/repository.
                   type: string
-                  format: uri
-              oneOf:
-              - required: [ref]
-              - required: [uri]
-          required:
-          - ownerAndRepository
-          - eventTypes
-          - accessToken
-          - secretToken
-          type: object
-        status:
-          properties:
-            conditions:
-              items:
-                properties:
-                  lastTransitionTime:
-                    # we use a string in the stored object but a wrapper object
-                    # at runtime.
+                  minLength: 1
+                eventTypes:
+                  description: List of webhooks to enable on the selected GitHub
+                    repository.
+                  type: array
+                  items:
+                    enum:
+                    - check_suite
+                    - commit_comment
+                    - create
+                    - delete
+                    - deployment
+                    - deployment_status
+                    - fork
+                    - gollum
+                    - installation
+                    - integration_installation
+                    - issue_comment
+                    - issues
+                    - label
+                    - member
+                    - membership
+                    - milestone
+                    - organization
+                    - org_block
+                    - page_build
+                    - ping
+                    - project_card
+                    - project_column
+                    - project
+                    - public
+                    - pull_request
+                    - pull_request_review
+                    - pull_request_review_comment
+                    - push
+                    - release
+                    - repository
+                    - status
+                    - team
+                    - team_add
+                    - watch
                     type: string
-                  message:
-                    type: string
-                  reason:
-                    type: string
-                  severity:
-                    type: string
-                  status:
-                    type: string
-                  type:
-                    type: string
-                required:
-                - type
-                - status
-                type: object
-              type: array
-            sinkUri:
-              type: string
-            webhookIDKey:
-              type: string
-          type: object
+                  minItems: 1
+                accessToken:
+                  description: Access token for the GitHub API.
+                  type: object
+                  properties:
+                    secretKeyRef:
+                      description: A reference to a Kubernetes Secret object
+                        containing a GitHub access token.
+                      type: object
+                      properties:
+                        name:
+                          description: The name of the Kubernetes Secret object
+                            which contains the GitHub access token.
+                          type: string
+                        key:
+                          description: The key which contains the GitHub access
+                            token within the Kubernetes Secret object referenced by
+                            name.
+                          type: string
+                      required:
+                      - name
+                      - key
+                secretToken:
+                  description: Arbitrary token used to validate requests to
+                    webhooks.
+                  type: object
+                  properties:
+                    secretKeyRef:
+                      description: A reference to a Kubernetes Secret object
+                        containing the webhook token.
+                      type: object
+                      properties:
+                        name:
+                          description: The name of the Kubernetes Secret object
+                            which contains the webhook token.
+                          type: string
+                        key:
+                          description: The key which contains the webhook token
+                            within the Kubernetes Secret object referenced by name.
+                          type: string
+                      required:
+                      - name
+                      - key
+                ceOverrides:
+                  type: object
+                  description: Defines overrides to control modifications of the
+                    event sent to the sink.
+                  properties:
+                    extensions:
+                      type: object
+                      additionalProperties:
+                        type: string
+                        minLength: 1
+                  required:
+                  - extensions
+                serviceAccountName:
+                  type: string
+                sink:
+                  description: The destination of events received from webhooks.
+                  type: object
+                  properties:
+                    ref:
+                      description: Reference to an addressable Kubernetes object
+                        to be used as the destination of events.
+                      type: object
+                      properties:
+                        apiVersion:
+                          type: string
+                          minLength: 1
+                        kind:
+                          type: string
+                          minLength: 1
+                        namespace:
+                          type: string
+                          minLength: 1
+                        name:
+                          type: string
+                          minLength: 1
+                      required:
+                      - apiVersion
+                      - kind
+                      - name
+                    uri:
+                      description: URI to use as the destination of events.
+                      type: string
+                      format: uri
+                  oneOf:
+                  - required: [ref]
+                  - required: [uri]
+              required:
+              - ownerAndRepository
+              - eventTypes
+              - accessToken
+              - secretToken
+              type: object
+            status:
+              properties:
+                conditions:
+                  items:
+                    properties:
+                      lastTransitionTime:
+                        # we use a string in the stored object but a wrapper object
+                        # at runtime.
+                        type: string
+                      message:
+                        type: string
+                      reason:
+                        type: string
+                      severity:
+                        type: string
+                      status:
+                        type: string
+                      type:
+                        type: string
+                    required:
+                    - type
+                    - status
+                    type: object
+                  type: array
+                sinkUri:
+                  type: string
+                webhookIDKey:
+                  type: string
+              type: object
 
