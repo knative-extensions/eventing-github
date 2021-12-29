@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apiVersion: admissionregistration.k8s.io/v1beta1
+apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 metadata:
   name: defaulting.webhook.github.sources.knative.dev
@@ -27,8 +27,9 @@ webhooks:
       namespace: knative-sources
   failurePolicy: Fail
   name: defaulting.webhook.github.sources.knative.dev
+  sideEffects: None
 ---
-apiVersion: admissionregistration.k8s.io/v1beta1
+apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
 metadata:
   name: validation.webhook.github.sources.knative.dev
@@ -43,8 +44,9 @@ webhooks:
       namespace: knative-sources
   failurePolicy: Fail
   name: validation.webhook.github.sources.knative.dev
+  sideEffects: None
 ---
-apiVersion: admissionregistration.k8s.io/v1beta1
+apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 metadata:
   name: githubbindings.webhook.github.sources.knative.dev
@@ -59,6 +61,7 @@ webhooks:
       namespace: knative-sources
   failurePolicy: Fail
   name: githubbindings.webhook.github.sources.knative.dev
+  sideEffects: None
 ---
 apiVersion: v1
 kind: Secret
