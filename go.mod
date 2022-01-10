@@ -3,7 +3,7 @@ module knative.dev/eventing-github
 go 1.16
 
 require (
-	github.com/cloudevents/sdk-go/v2 v2.7.0
+	github.com/cloudevents/sdk-go/v2 v2.8.0
 	github.com/emicklei/go-restful v2.15.0+incompatible // indirect
 	github.com/google/go-cmp v0.5.6
 	github.com/google/go-github/v31 v31.0.0
@@ -16,10 +16,10 @@ require (
 	k8s.io/api v0.22.5
 	k8s.io/apimachinery v0.22.5
 	k8s.io/client-go v0.22.5
-	knative.dev/eventing v0.28.1-0.20220105073332-4348c292392a
+	knative.dev/eventing v0.28.1-0.20220107145225-eb4c06c8009d
 	knative.dev/hack v0.0.0-20211222071919-abd085fc43de
-	knative.dev/pkg v0.0.0-20220104185830-52e42b760b54
-	knative.dev/serving v0.28.1-0.20220104122631-278af32f24ce
+	knative.dev/pkg v0.0.0-20220105211333-96f18522d78d
+	knative.dev/serving v0.28.1-0.20220107170125-03091748d279
 )
 
 replace github.com/prometheus/client_golang => github.com/prometheus/client_golang v0.9.2
