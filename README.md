@@ -3,7 +3,7 @@
 |               |                                                                                                                    |
 | ------------- | ------------------------------------------------------------------------------------------------------------------ |
 | STATUS        | Alpha                                                                                                              |
-| Sponsoring WG | [Event Source](https://github.com/knative/community/blob/master/working-groups/WORKING-GROUPS.md#eventing-sources) |
+| Sponsoring WG | [Eventing](https://github.com/knative/community/blob/main/working-groups/WORKING-GROUPS.md#eventing)               |
 
 The Knative GitHub Source registers for events of the specified types on the
 specified GitHub organization or repository, and brings those events into
