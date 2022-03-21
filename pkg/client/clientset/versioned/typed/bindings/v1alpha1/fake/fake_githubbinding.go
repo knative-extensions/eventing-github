@@ -117,7 +117,7 @@ func (c *FakeGitHubBindings) UpdateStatus(ctx context.Context, gitHubBinding *v1
 // Delete takes name of the gitHubBinding and deletes it. Returns an error if one occurs.
 func (c *FakeGitHubBindings) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
-		Invokes(testing.NewDeleteAction(githubbindingsResource, c.ns, name), &v1alpha1.GitHubBinding{})
+		Invokes(testing.NewDeleteActionWithOptions(githubbindingsResource, c.ns, name, opts), &v1alpha1.GitHubBinding{})
 
 	return err
 }
