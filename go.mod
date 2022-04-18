@@ -7,7 +7,6 @@ require (
 	github.com/cloudevents/sdk-go/v2 v2.8.0
 	github.com/emicklei/go-restful v2.15.0+incompatible // indirect
 	github.com/google/go-cmp v0.5.7
-	github.com/google/go-containerregistry v0.8.1-0.20220219142810-1571d7fdc46e // indirect
 	github.com/google/go-github/v31 v31.0.0
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/stretchr/testify v1.7.0
@@ -18,10 +17,10 @@ require (
 	k8s.io/api v0.23.5
 	k8s.io/apimachinery v0.23.5
 	k8s.io/client-go v0.23.5
-	knative.dev/eventing v0.30.1-0.20220412073008-22223245a4a4
+	knative.dev/eventing v0.30.1-0.20220415141711-ff55a456c3f9
 	knative.dev/hack v0.0.0-20220411131823-6ffd8417de7c
 	knative.dev/pkg v0.0.0-20220412134708-e325df66cb51
-	knative.dev/serving v0.30.1-0.20220413003907-2de1474b55ba
+	knative.dev/serving v0.30.1-0.20220416140111-2e5ca679a71e
 )
 
 replace github.com/prometheus/client_golang => github.com/prometheus/client_golang v0.9.2
