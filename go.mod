@@ -14,13 +14,13 @@ require (
 	golang.org/x/oauth2 v0.0.0-20220223155221-ee480838109b
 	gonum.org/v1/gonum v0.0.0-20190331200053-3d26580ed485 // indirect
 	gopkg.in/go-playground/webhooks.v5 v5.13.0
-	k8s.io/api v0.23.8
-	k8s.io/apimachinery v0.23.8
-	k8s.io/client-go v0.23.8
-	knative.dev/eventing v0.33.1-0.20220728013737-e5405de6fa69
+	k8s.io/api v0.23.9
+	k8s.io/apimachinery v0.23.9
+	k8s.io/client-go v0.23.9
+	knative.dev/eventing v0.33.1-0.20220728144837-15dd7ca8c811
 	knative.dev/hack v0.0.0-20220728013938-9dabf7cf62e3
-	knative.dev/pkg v0.0.0-20220728013737-449f7e6dab63
-	knative.dev/serving v0.33.1-0.20220728013938-d0887e7c3a99
+	knative.dev/pkg v0.0.0-20220802185824-a01dfedb0486
+	knative.dev/serving v0.33.1-0.20220803125719-875937b288b4
 )
 
 replace github.com/prometheus/client_golang => github.com/prometheus/client_golang v0.9.2
