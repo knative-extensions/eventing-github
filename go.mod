@@ -6,8 +6,6 @@ require (
 	github.com/cloudevents/sdk-go/v2 v2.10.1
 	github.com/google/go-cmp v0.5.7
 	github.com/google/go-github/v31 v31.0.0
-	github.com/hashicorp/go-cleanhttp v0.5.1
-	github.com/hashicorp/golang-lru v0.5.4
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/stretchr/testify v1.7.0
 	go.uber.org/zap v1.21.0
@@ -65,7 +63,9 @@ require (
 	github.com/googleapis/gax-go/v2 v2.1.1 // indirect
 	github.com/googleapis/gnostic v0.5.5 // indirect
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0 // indirect
+	github.com/hashicorp/go-cleanhttp v0.5.1 // indirect
 	github.com/hashicorp/go-retryablehttp v0.6.7 // indirect
+	github.com/hashicorp/golang-lru v0.5.4 // indirect
 	github.com/imdario/mergo v0.3.12 // indirect
 	github.com/influxdata/tdigest v0.0.1 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
