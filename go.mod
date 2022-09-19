@@ -7,17 +7,17 @@ require (
 	github.com/google/go-cmp v0.5.7
 	github.com/google/go-github/v31 v31.0.0
 	github.com/kelseyhightower/envconfig v1.4.0
-	github.com/stretchr/testify v1.7.0
+	github.com/stretchr/testify v1.8.0
 	go.uber.org/zap v1.21.0
 	golang.org/x/oauth2 v0.0.0-20220223155221-ee480838109b
 	gopkg.in/go-playground/webhooks.v5 v5.13.0
 	k8s.io/api v0.24.4
 	k8s.io/apimachinery v0.24.4
 	k8s.io/client-go v0.24.4
-	knative.dev/eventing v0.34.1-0.20220912074833-e46f4d509d74
+	knative.dev/eventing v0.34.1-0.20220915121905-b8cb60cf89b8
 	knative.dev/hack v0.0.0-20220914183605-d1317b08c0c3
 	knative.dev/pkg v0.0.0-20220914154704-5f66ecf267fe
-	knative.dev/serving v0.34.1-0.20220914132605-8690e51abdeb
+	knative.dev/serving v0.34.1-0.20220915131205-d6ab4640ebb2
 )
 
 require (
@@ -119,7 +119,7 @@ require (
 	k8s.io/klog/v2 v2.70.2-0.20220707122935-0990e81f1a8f // indirect
 	k8s.io/kube-openapi v0.0.0-20220328201542-3ee0da9b0b42 // indirect
 	k8s.io/utils v0.0.0-20220210201930-3a6ce19ff2f9 // indirect
-	knative.dev/networking v0.0.0-20220909015323-aded181b1709 // indirect
+	knative.dev/networking v0.0.0-20220914020748-cefed20d561c // indirect
 	sigs.k8s.io/json v0.0.0-20211208200746-9f7c6b3444d2 // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.2.1 // indirect
 	sigs.k8s.io/yaml v1.3.0 // indirect
