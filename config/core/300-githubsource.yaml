@@ -31,6 +31,7 @@ metadata:
         { "type": "dev.knative.source.github.delete" },
         { "type": "dev.knative.source.github.deployment" },
         { "type": "dev.knative.source.github.deployment_status" },
+        { "type": "dev.knative.source.github.discussion" },
         { "type": "dev.knative.source.github.fork" },
         { "type": "dev.knative.source.github.gollum" },
         { "type": "dev.knative.source.github.installation" },
@@ -113,6 +114,7 @@ spec:
                     - delete
                     - deployment
                     - deployment_status
+                    - discussion
                     - fork
                     - gollum
                     - installation
