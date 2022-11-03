@@ -18,7 +18,7 @@ package github
 
 import (
 	"context"
-	"io/ioutil"
+	"os"
 	"path/filepath"
 
 	"github.com/google/go-github/v31/github"
@@ -33,7 +33,7 @@ const (
 
 // ReadKey may be used to read keys from the secret bound by the GitHubBinding.
 func ReadKey(key string) (string, error) {
-	data, err := ioutil.ReadFile(filepath.Join(MountPath, key))
+	data, err := os.ReadFile(filepath.Join(MountPath, key))
 	if err != nil {
 		return "", err
 	}
