@@ -35,7 +35,7 @@ type ServiceArgs struct {
 
 // MakeService generates, but does not create, a Service for the given
 // GitHubSource.
-//func MakeService(source *sourcesv1alpha1.GitHubSource, receiveAdapterImage string) *servingv1alpha1.Service {
+// func MakeService(source *sourcesv1alpha1.GitHubSource, receiveAdapterImage string) *servingv1alpha1.Service {
 func MakeService(args *ServiceArgs) *v1.Service {
 	labels := map[string]string{
 		"receive-adapter": "github",
