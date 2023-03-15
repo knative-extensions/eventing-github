@@ -96,6 +96,9 @@ spec:
           properties:
             spec:
               properties:
+                githubAPIURL:
+                  description: URL for enterprise GitHub
+                  type: string
                 ownerAndRepository:
                   description: Reference to the GitHub repository to receive events
                     from, in the format user/repository.
