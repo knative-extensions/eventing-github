@@ -23,7 +23,6 @@ import (
 
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
-	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	testing "k8s.io/client-go/testing"
@@ -36,9 +35,9 @@ type FakeGitHubSources struct {
 	ns   string
 }
 
-var githubsourcesResource = schema.GroupVersionResource{Group: "sources.knative.dev", Version: "v1alpha1", Resource: "githubsources"}
+var githubsourcesResource = v1alpha1.SchemeGroupVersion.WithResource("githubsources")
 
-var githubsourcesKind = schema.GroupVersionKind{Group: "sources.knative.dev", Version: "v1alpha1", Kind: "GitHubSource"}
+var githubsourcesKind = v1alpha1.SchemeGroupVersion.WithKind("GitHubSource")
 
 // Get takes name of the gitHubSource, and returns the corresponding gitHubSource object, and an error if there is any.
 func (c *FakeGitHubSources) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.GitHubSource, err error) {

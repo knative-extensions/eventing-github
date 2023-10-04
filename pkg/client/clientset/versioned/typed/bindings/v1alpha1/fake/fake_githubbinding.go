@@ -23,7 +23,6 @@ import (
 
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
-	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	testing "k8s.io/client-go/testing"
@@ -36,9 +35,9 @@ type FakeGitHubBindings struct {
 	ns   string
 }
 
-var githubbindingsResource = schema.GroupVersionResource{Group: "bindings.knative.dev", Version: "v1alpha1", Resource: "githubbindings"}
+var githubbindingsResource = v1alpha1.SchemeGroupVersion.WithResource("githubbindings")
 
-var githubbindingsKind = schema.GroupVersionKind{Group: "bindings.knative.dev", Version: "v1alpha1", Kind: "GitHubBinding"}
+var githubbindingsKind = v1alpha1.SchemeGroupVersion.WithKind("GitHubBinding")
 
 // Get takes name of the gitHubBinding, and returns the corresponding gitHubBinding object, and an error if there is any.
 func (c *FakeGitHubBindings) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.GitHubBinding, err error) {
