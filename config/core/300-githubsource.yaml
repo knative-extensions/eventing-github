@@ -234,6 +234,11 @@ spec:
                   oneOf:
                   - required: [ref]
                   - required: [uri]
+                secure:
+                  type: boolean
+                  description: Secure can be set to true to configure the
+                    webhook to use https, or false to use http. Omitting it relies
+                    on the scheme of the Knative Service created.
               required:
               - ownerAndRepository
               - eventTypes
