@@ -9,15 +9,15 @@ require (
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/stretchr/testify v1.8.1
 	go.uber.org/zap v1.26.0
-	golang.org/x/oauth2 v0.12.0
+	golang.org/x/oauth2 v0.13.0
 	gopkg.in/go-playground/webhooks.v5 v5.13.0
 	k8s.io/api v0.27.6
 	k8s.io/apimachinery v0.27.6
 	k8s.io/client-go v0.27.6
-	knative.dev/eventing v0.38.1-0.20231006142033-9de527599ed0
-	knative.dev/hack v0.0.0-20231006131420-158898889ae8
-	knative.dev/pkg v0.0.0-20231009134048-bae23eb35759
-	knative.dev/serving v0.38.1-0.20231010011557-7bcf0348f14f
+	knative.dev/eventing v0.38.1-0.20231010152929-029b340c5262
+	knative.dev/hack v0.0.0-20231010131532-fc76874b28c6
+	knative.dev/pkg v0.0.0-20231010144348-ca8c009405dd
+	knative.dev/serving v0.38.1-0.20231010151518-ea603c9685fb
 )
 
 require (
@@ -77,12 +77,12 @@ require (
 	go.opencensus.io v0.24.0 // indirect
 	go.uber.org/automaxprocs v1.5.3 // indirect
 	go.uber.org/multierr v1.10.0 // indirect
-	golang.org/x/crypto v0.13.0 // indirect
+	golang.org/x/crypto v0.14.0 // indirect
 	golang.org/x/mod v0.12.0 // indirect
-	golang.org/x/net v0.15.0 // indirect
+	golang.org/x/net v0.16.0 // indirect
 	golang.org/x/sync v0.3.0 // indirect
-	golang.org/x/sys v0.12.0 // indirect
-	golang.org/x/term v0.12.0 // indirect
+	golang.org/x/sys v0.13.0 // indirect
+	golang.org/x/term v0.13.0 // indirect
 	golang.org/x/text v0.13.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
 	golang.org/x/tools v0.13.0 // indirect
@@ -103,7 +103,7 @@ require (
 	k8s.io/klog/v2 v2.90.1 // indirect
 	k8s.io/kube-openapi v0.0.0-20230501164219-8b0f38b5fd1f // indirect
 	k8s.io/utils v0.0.0-20230209194617-a36077c30491 // indirect
-	knative.dev/networking v0.0.0-20231004065302-53ba1f44ef7a // indirect
+	knative.dev/networking v0.0.0-20231006133103-cf57a576247c // indirect
 	sigs.k8s.io/json v0.0.0-20221116044647-bc3834ca7abd // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.2.3 // indirect
 	sigs.k8s.io/yaml v1.3.0 // indirect
