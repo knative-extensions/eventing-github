@@ -277,7 +277,7 @@ go.uber.org/zap/internal/stacktrace
 go.uber.org/zap/internal/ztest
 go.uber.org/zap/zapcore
 go.uber.org/zap/zaptest
-# golang.org/x/crypto v0.13.0
+# golang.org/x/crypto v0.14.0
 ## explicit; go 1.17
 golang.org/x/crypto/cast5
 golang.org/x/crypto/openpgp
@@ -291,7 +291,7 @@ golang.org/x/crypto/openpgp/s2k
 golang.org/x/mod/internal/lazyregexp
 golang.org/x/mod/module
 golang.org/x/mod/semver
-# golang.org/x/net v0.15.0
+# golang.org/x/net v0.16.0
 ## explicit; go 1.17
 golang.org/x/net/context
 golang.org/x/net/http/httpguts
@@ -301,7 +301,7 @@ golang.org/x/net/http2/hpack
 golang.org/x/net/idna
 golang.org/x/net/internal/timeseries
 golang.org/x/net/trace
-# golang.org/x/oauth2 v0.12.0
+# golang.org/x/oauth2 v0.13.0
 ## explicit; go 1.18
 golang.org/x/oauth2
 golang.org/x/oauth2/internal
@@ -309,14 +309,13 @@ golang.org/x/oauth2/internal
 ## explicit; go 1.17
 golang.org/x/sync/errgroup
 golang.org/x/sync/semaphore
-# golang.org/x/sys v0.12.0
+# golang.org/x/sys v0.13.0
 ## explicit; go 1.17
 golang.org/x/sys/execabs
-golang.org/x/sys/internal/unsafeheader
 golang.org/x/sys/plan9
 golang.org/x/sys/unix
 golang.org/x/sys/windows
-# golang.org/x/term v0.12.0
+# golang.org/x/term v0.13.0
 ## explicit; go 1.17
 golang.org/x/term
 # golang.org/x/text v0.13.0
@@ -968,7 +967,7 @@ k8s.io/utils/net
 k8s.io/utils/pointer
 k8s.io/utils/strings/slices
 k8s.io/utils/trace
-# knative.dev/eventing v0.38.1-0.20231006142033-9de527599ed0
+# knative.dev/eventing v0.38.1-0.20231010152929-029b340c5262
 ## explicit; go 1.19
 knative.dev/eventing/pkg/adapter/v2
 knative.dev/eventing/pkg/adapter/v2/test
@@ -1015,15 +1014,15 @@ knative.dev/eventing/pkg/metrics
 knative.dev/eventing/pkg/metrics/source
 knative.dev/eventing/pkg/observability
 knative.dev/eventing/pkg/observability/client
-# knative.dev/hack v0.0.0-20231006131420-158898889ae8
+# knative.dev/hack v0.0.0-20231010131532-fc76874b28c6
 ## explicit; go 1.18
 knative.dev/hack
-# knative.dev/networking v0.0.0-20231004065302-53ba1f44ef7a
+# knative.dev/networking v0.0.0-20231006133103-cf57a576247c
 ## explicit; go 1.18
 knative.dev/networking/pkg/apis/networking
 knative.dev/networking/pkg/apis/networking/v1alpha1
 knative.dev/networking/pkg/config
-# knative.dev/pkg v0.0.0-20231009134048-bae23eb35759
+# knative.dev/pkg v0.0.0-20231010144348-ca8c009405dd
 ## explicit; go 1.18
 knative.dev/pkg/apis
 knative.dev/pkg/apis/duck
@@ -1087,7 +1086,7 @@ knative.dev/pkg/webhook/psbinding
 knative.dev/pkg/webhook/resourcesemantics
 knative.dev/pkg/webhook/resourcesemantics/defaulting
 knative.dev/pkg/webhook/resourcesemantics/validation
-# knative.dev/serving v0.38.1-0.20231010011557-7bcf0348f14f
+# knative.dev/serving v0.38.1-0.20231010151518-ea603c9685fb
 ## explicit; go 1.18
 knative.dev/serving/pkg/apis/autoscaling
 knative.dev/serving/pkg/apis/autoscaling/v1alpha1
