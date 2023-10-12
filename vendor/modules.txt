@@ -291,7 +291,7 @@ golang.org/x/crypto/openpgp/s2k
 golang.org/x/mod/internal/lazyregexp
 golang.org/x/mod/module
 golang.org/x/mod/semver
-# golang.org/x/net v0.16.0
+# golang.org/x/net v0.17.0
 ## explicit; go 1.17
 golang.org/x/net/context
 golang.org/x/net/http/httpguts
@@ -305,7 +305,7 @@ golang.org/x/net/trace
 ## explicit; go 1.18
 golang.org/x/oauth2
 golang.org/x/oauth2/internal
-# golang.org/x/sync v0.3.0
+# golang.org/x/sync v0.4.0
 ## explicit; go 1.17
 golang.org/x/sync/errgroup
 golang.org/x/sync/semaphore
@@ -344,7 +344,7 @@ golang.org/x/tools/internal/typeparams
 # gomodules.xyz/jsonpatch/v2 v2.4.0
 ## explicit; go 1.20
 gomodules.xyz/jsonpatch/v2
-# google.golang.org/api v0.143.0
+# google.golang.org/api v0.145.0
 ## explicit; go 1.19
 google.golang.org/api/support/bundler
 # google.golang.org/appengine v1.6.7
@@ -967,7 +967,7 @@ k8s.io/utils/net
 k8s.io/utils/pointer
 k8s.io/utils/strings/slices
 k8s.io/utils/trace
-# knative.dev/eventing v0.38.1-0.20231011080842-a0e4c18a3748
+# knative.dev/eventing v0.38.1-0.20231011142145-da0fba3c161a
 ## explicit; go 1.19
 knative.dev/eventing/pkg/adapter/v2
 knative.dev/eventing/pkg/adapter/v2/test
@@ -1022,7 +1022,7 @@ knative.dev/hack
 knative.dev/networking/pkg/apis/networking
 knative.dev/networking/pkg/apis/networking/v1alpha1
 knative.dev/networking/pkg/config
-# knative.dev/pkg v0.0.0-20231010144348-ca8c009405dd
+# knative.dev/pkg v0.0.0-20231011202506-948f5f57818a
 ## explicit; go 1.18
 knative.dev/pkg/apis
 knative.dev/pkg/apis/duck
@@ -1086,7 +1086,7 @@ knative.dev/pkg/webhook/psbinding
 knative.dev/pkg/webhook/resourcesemantics
 knative.dev/pkg/webhook/resourcesemantics/defaulting
 knative.dev/pkg/webhook/resourcesemantics/validation
-# knative.dev/serving v0.38.1-0.20231011120538-596e1bdad3ef
+# knative.dev/serving v0.38.1-0.20231011210335-6703812f1314
 ## explicit; go 1.18
 knative.dev/serving/pkg/apis/autoscaling
 knative.dev/serving/pkg/apis/autoscaling/v1alpha1
