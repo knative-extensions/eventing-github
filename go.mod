@@ -1,6 +1,8 @@
 module knative.dev/eventing-github
 
-go 1.18
+go 1.21
+
+toolchain go1.21.4
 
 require (
 	github.com/cloudevents/sdk-go/v2 v2.13.0
@@ -14,10 +16,10 @@ require (
 	k8s.io/api v0.27.6
 	k8s.io/apimachinery v0.27.6
 	k8s.io/client-go v0.27.6
-	knative.dev/eventing v0.39.1-0.20231117142309-2d1bfb5d54a9
+	knative.dev/eventing v0.39.1-0.20231120220132-67f382d60b43
 	knative.dev/hack v0.0.0-20231109190034-5deaddeb51a7
-	knative.dev/pkg v0.0.0-20231115001034-97c7258e3a98
-	knative.dev/serving v0.39.1-0.20231116002444-75613869a913
+	knative.dev/pkg v0.0.0-20231120182734-703c8b0d5c34
+	knative.dev/serving v0.39.1-0.20231121111845-30c9b6d91659
 )
 
 require (
