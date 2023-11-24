@@ -20,6 +20,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"time"
 
 	cloudevents "github.com/cloudevents/sdk-go/v2"
 	"go.uber.org/zap"
@@ -87,8 +88,10 @@ func NewAdapter(ctx context.Context, processed adapter.EnvConfigAccessor, ceClie
 func (a *gitHubAdapter) Start(ctx context.Context) error {
 	// Start our multi-tenant server receiving GitHub events
 	server := &http.Server{
-		Addr:    fmt.Sprintf(":%d", a.port),
-		Handler: a.router,
+		ReadTimeout:       10 * time.Second,
+		ReadHeaderTimeout: 2 * time.Second,
+		Addr:              fmt.Sprintf(":%d", a.port),
+		Handler:           a.router,
 	}
 
 	done := make(chan bool, 1)

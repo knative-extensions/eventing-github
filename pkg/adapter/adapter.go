@@ -20,6 +20,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"time"
 
 	cloudevents "github.com/cloudevents/sdk-go/v2"
 	"go.uber.org/zap"
@@ -79,8 +80,10 @@ func (a *gitHubAdapter) Start(ctx context.Context) error {
 	done := make(chan bool, 1)
 
 	server := &http.Server{
-		Addr:    ":" + a.port,
-		Handler: a.newRouter(),
+		ReadTimeout:       10 * time.Second,
+		ReadHeaderTimeout: 2 * time.Second,
+		Addr:              ":" + a.port,
+		Handler:           a.newRouter(),
 	}
 
 	go common.GracefulShutdown(server, a.logger, ctx.Done(), done)
