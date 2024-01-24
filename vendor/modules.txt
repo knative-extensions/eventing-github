@@ -975,7 +975,7 @@ k8s.io/utils/net
 k8s.io/utils/pointer
 k8s.io/utils/strings/slices
 k8s.io/utils/trace
-# knative.dev/eventing v0.39.1-0.20240123091525-fd952282e353
+# knative.dev/eventing v0.40.0
 ## explicit; go 1.21
 knative.dev/eventing/pkg/adapter/v2
 knative.dev/eventing/pkg/adapter/v2/test
@@ -1026,7 +1026,7 @@ knative.dev/eventing/pkg/metrics
 knative.dev/eventing/pkg/metrics/source
 knative.dev/eventing/pkg/observability
 knative.dev/eventing/pkg/observability/client
-# knative.dev/hack v0.0.0-20240111013919-e89096d74d85
+# knative.dev/hack v0.0.0-20240123162936-f3f03ac0ab1a
 ## explicit; go 1.18
 knative.dev/hack
 # knative.dev/networking v0.0.0-20240116081125-ce0738abf051
@@ -1098,7 +1098,7 @@ knative.dev/pkg/webhook/psbinding
 knative.dev/pkg/webhook/resourcesemantics
 knative.dev/pkg/webhook/resourcesemantics/defaulting
 knative.dev/pkg/webhook/resourcesemantics/validation
-# knative.dev/serving v0.39.1-0.20240123130742-40b06284f7a0
+# knative.dev/serving v0.39.1-0.20240123152112-7509f7d9b806
 ## explicit; go 1.21
 knative.dev/serving/pkg/apis/autoscaling
 knative.dev/serving/pkg/apis/autoscaling/v1alpha1
