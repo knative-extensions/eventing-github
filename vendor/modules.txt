@@ -1025,15 +1025,15 @@ knative.dev/eventing/pkg/metrics
 knative.dev/eventing/pkg/metrics/source
 knative.dev/eventing/pkg/observability
 knative.dev/eventing/pkg/observability/client
-# knative.dev/hack v0.0.0-20240302114326-e6dedc74dc47
+# knative.dev/hack v0.0.0-20240313135155-b9f6bf0b323b
 ## explicit; go 1.18
 knative.dev/hack
-# knative.dev/networking v0.0.0-20240311132944-3252e63e3239
+# knative.dev/networking v0.0.0-20240312031421-3594f84d0be5
 ## explicit; go 1.21
 knative.dev/networking/pkg/apis/networking
 knative.dev/networking/pkg/apis/networking/v1alpha1
 knative.dev/networking/pkg/config
-# knative.dev/pkg v0.0.0-20240311204931-2c15a6fd07af
+# knative.dev/pkg v0.0.0-20240313155908-adefab46f5e5
 ## explicit; go 1.21
 knative.dev/pkg/apis
 knative.dev/pkg/apis/duck
@@ -1097,7 +1097,7 @@ knative.dev/pkg/webhook/psbinding
 knative.dev/pkg/webhook/resourcesemantics
 knative.dev/pkg/webhook/resourcesemantics/defaulting
 knative.dev/pkg/webhook/resourcesemantics/validation
-# knative.dev/serving v0.40.1-0.20240312204407-a194cb210d5e
+# knative.dev/serving v0.40.1-0.20240313161246-3504239e99cd
 ## explicit; go 1.21
 knative.dev/serving/pkg/apis/autoscaling
 knative.dev/serving/pkg/apis/autoscaling/v1alpha1
