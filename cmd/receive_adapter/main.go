@@ -18,10 +18,14 @@ package main
 
 import (
 	"knative.dev/eventing/pkg/adapter/v2"
+	"knative.dev/pkg/signals"
 
 	githubadapter "knative.dev/eventing-github/pkg/adapter"
 )
 
 func main() {
-	adapter.Main("githubsource", githubadapter.NewEnvConfig, githubadapter.NewAdapter)
+	ctx := signals.NewContext()
+	ctx = adapter.WithInjectorEnabled(ctx)
+
+	adapter.MainWithContext(ctx, "githubsource", githubadapter.NewEnvConfig, githubadapter.NewAdapter)
 }
