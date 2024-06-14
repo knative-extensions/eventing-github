@@ -561,6 +561,7 @@ k8s.io/apimachinery/pkg/util/managedfields/internal
 k8s.io/apimachinery/pkg/util/mergepatch
 k8s.io/apimachinery/pkg/util/naming
 k8s.io/apimachinery/pkg/util/net
+k8s.io/apimachinery/pkg/util/rand
 k8s.io/apimachinery/pkg/util/runtime
 k8s.io/apimachinery/pkg/util/sets
 k8s.io/apimachinery/pkg/util/strategicpatch
@@ -573,6 +574,9 @@ k8s.io/apimachinery/pkg/version
 k8s.io/apimachinery/pkg/watch
 k8s.io/apimachinery/third_party/forked/golang/json
 k8s.io/apimachinery/third_party/forked/golang/reflect
+# k8s.io/apiserver v0.29.2
+## explicit; go 1.21
+k8s.io/apiserver/pkg/storage/names
 # k8s.io/client-go v0.29.2
 ## explicit; go 1.21
 k8s.io/client-go/applyconfigurations/admissionregistration/v1
@@ -966,7 +970,7 @@ k8s.io/utils/pointer
 k8s.io/utils/ptr
 k8s.io/utils/strings/slices
 k8s.io/utils/trace
-# knative.dev/eventing v0.41.1-0.20240611091249-c60bcd048fd3
+# knative.dev/eventing v0.41.1-0.20240613093107-ea8f0fda4c06
 ## explicit; go 1.21
 knative.dev/eventing/pkg/adapter/v2
 knative.dev/eventing/pkg/adapter/v2/test
@@ -977,6 +981,7 @@ knative.dev/eventing/pkg/apis/duck
 knative.dev/eventing/pkg/apis/duck/v1
 knative.dev/eventing/pkg/apis/eventing
 knative.dev/eventing/pkg/apis/eventing/v1
+knative.dev/eventing/pkg/apis/eventing/v1alpha1
 knative.dev/eventing/pkg/apis/eventing/v1beta1
 knative.dev/eventing/pkg/apis/eventing/v1beta2
 knative.dev/eventing/pkg/apis/eventing/v1beta3
@@ -998,6 +1003,8 @@ knative.dev/eventing/pkg/client/clientset/versioned/fake
 knative.dev/eventing/pkg/client/clientset/versioned/scheme
 knative.dev/eventing/pkg/client/clientset/versioned/typed/eventing/v1
 knative.dev/eventing/pkg/client/clientset/versioned/typed/eventing/v1/fake
+knative.dev/eventing/pkg/client/clientset/versioned/typed/eventing/v1alpha1
+knative.dev/eventing/pkg/client/clientset/versioned/typed/eventing/v1alpha1/fake
 knative.dev/eventing/pkg/client/clientset/versioned/typed/eventing/v1beta1
 knative.dev/eventing/pkg/client/clientset/versioned/typed/eventing/v1beta1/fake
 knative.dev/eventing/pkg/client/clientset/versioned/typed/eventing/v1beta2
@@ -1094,7 +1101,7 @@ knative.dev/pkg/webhook/psbinding
 knative.dev/pkg/webhook/resourcesemantics
 knative.dev/pkg/webhook/resourcesemantics/defaulting
 knative.dev/pkg/webhook/resourcesemantics/validation
-# knative.dev/serving v0.41.1-0.20240611132024-227975c8e431
+# knative.dev/serving v0.41.1-0.20240614080555-1f7cc4852a07
 ## explicit; go 1.21
 knative.dev/serving/pkg/apis/autoscaling
 knative.dev/serving/pkg/apis/autoscaling/v1alpha1
