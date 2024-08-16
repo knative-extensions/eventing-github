@@ -14,10 +14,10 @@ require (
 	k8s.io/api v0.30.3
 	k8s.io/apimachinery v0.30.3
 	k8s.io/client-go v0.30.3
-	knative.dev/eventing v0.42.1-0.20240813160331-71d5d5f0bb73
+	knative.dev/eventing v0.42.1-0.20240816055941-2b922992c8f4
 	knative.dev/hack v0.0.0-20240814130635-06f7aff93954
-	knative.dev/pkg v0.0.0-20240812053209-cd3311cbab65
-	knative.dev/serving v0.42.1-0.20240814051558-64820f2772a8
+	knative.dev/pkg v0.0.0-20240815051656-89743d9bbf7c
+	knative.dev/serving v0.42.1-0.20240815134700-c51ee6c37358
 )
 
 require (
@@ -76,6 +76,7 @@ require (
 	github.com/robfig/cron/v3 v3.0.1 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	go.opencensus.io v0.24.0 // indirect
+	go.uber.org/atomic v1.10.0 // indirect
 	go.uber.org/automaxprocs v1.5.3 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/crypto v0.26.0 // indirect
@@ -104,7 +105,7 @@ require (
 	k8s.io/klog/v2 v2.130.1 // indirect
 	k8s.io/kube-openapi v0.0.0-20240808142205-8e686545bdb8 // indirect
 	k8s.io/utils v0.0.0-20240711033017-18e509b52bc8 // indirect
-	knative.dev/networking v0.0.0-20240802083044-f1702380495f // indirect
+	knative.dev/networking v0.0.0-20240808015019-d4c57cd4a1b3 // indirect
 	sigs.k8s.io/json v0.0.0-20221116044647-bc3834ca7abd // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.4.1 // indirect
 	sigs.k8s.io/yaml v1.4.0 // indirect
