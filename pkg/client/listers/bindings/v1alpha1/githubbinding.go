@@ -19,8 +19,8 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/labels"
+	"k8s.io/client-go/listers"
 	"k8s.io/client-go/tools/cache"
 	v1alpha1 "knative.dev/eventing-github/pkg/apis/bindings/v1alpha1"
 )
@@ -38,25 +38,17 @@ type GitHubBindingLister interface {
 
 // gitHubBindingLister implements the GitHubBindingLister interface.
 type gitHubBindingLister struct {
-	indexer cache.Indexer
+	listers.ResourceIndexer[*v1alpha1.GitHubBinding]
 }
 
 // NewGitHubBindingLister returns a new GitHubBindingLister.
 func NewGitHubBindingLister(indexer cache.Indexer) GitHubBindingLister {
-	return &gitHubBindingLister{indexer: indexer}
-}
-
-// List lists all GitHubBindings in the indexer.
-func (s *gitHubBindingLister) List(selector labels.Selector) (ret []*v1alpha1.GitHubBinding, err error) {
-	err = cache.ListAll(s.indexer, selector, func(m interface{}) {
-		ret = append(ret, m.(*v1alpha1.GitHubBinding))
-	})
-	return ret, err
+	return &gitHubBindingLister{listers.New[*v1alpha1.GitHubBinding](indexer, v1alpha1.Resource("githubbinding"))}
 }
 
 // GitHubBindings returns an object that can list and get GitHubBindings.
 func (s *gitHubBindingLister) GitHubBindings(namespace string) GitHubBindingNamespaceLister {
-	return gitHubBindingNamespaceLister{indexer: s.indexer, namespace: namespace}
+	return gitHubBindingNamespaceLister{listers.NewNamespaced[*v1alpha1.GitHubBinding](s.ResourceIndexer, namespace)}
 }
 
 // GitHubBindingNamespaceLister helps list and get GitHubBindings.
@@ -74,26 +66,5 @@ type GitHubBindingNamespaceLister interface {
 // gitHubBindingNamespaceLister implements the GitHubBindingNamespaceLister
 // interface.
 type gitHubBindingNamespaceLister struct {
-	indexer   cache.Indexer
-	namespace string
-}
-
-// List lists all GitHubBindings in the indexer for a given namespace.
-func (s gitHubBindingNamespaceLister) List(selector labels.Selector) (ret []*v1alpha1.GitHubBinding, err error) {
-	err = cache.ListAllByNamespace(s.indexer, s.namespace, selector, func(m interface{}) {
-		ret = append(ret, m.(*v1alpha1.GitHubBinding))
-	})
-	return ret, err
-}
-
-// Get retrieves the GitHubBinding from the indexer for a given namespace and name.
-func (s gitHubBindingNamespaceLister) Get(name string) (*v1alpha1.GitHubBinding, error) {
-	obj, exists, err := s.indexer.GetByKey(s.namespace + "/" + name)
-	if err != nil {
-		return nil, err
-	}
-	if !exists {
-		return nil, errors.NewNotFound(v1alpha1.Resource("githubbinding"), name)
-	}
-	return obj.(*v1alpha1.GitHubBinding), nil
+	listers.ResourceIndexer[*v1alpha1.GitHubBinding]
 }
