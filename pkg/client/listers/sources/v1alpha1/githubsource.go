@@ -19,8 +19,8 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/labels"
+	"k8s.io/client-go/listers"
 	"k8s.io/client-go/tools/cache"
 	v1alpha1 "knative.dev/eventing-github/pkg/apis/sources/v1alpha1"
 )
@@ -38,25 +38,17 @@ type GitHubSourceLister interface {
 
 // gitHubSourceLister implements the GitHubSourceLister interface.
 type gitHubSourceLister struct {
-	indexer cache.Indexer
+	listers.ResourceIndexer[*v1alpha1.GitHubSource]
 }
 
 // NewGitHubSourceLister returns a new GitHubSourceLister.
 func NewGitHubSourceLister(indexer cache.Indexer) GitHubSourceLister {
-	return &gitHubSourceLister{indexer: indexer}
-}
-
-// List lists all GitHubSources in the indexer.
-func (s *gitHubSourceLister) List(selector labels.Selector) (ret []*v1alpha1.GitHubSource, err error) {
-	err = cache.ListAll(s.indexer, selector, func(m interface{}) {
-		ret = append(ret, m.(*v1alpha1.GitHubSource))
-	})
-	return ret, err
+	return &gitHubSourceLister{listers.New[*v1alpha1.GitHubSource](indexer, v1alpha1.Resource("githubsource"))}
 }
 
 // GitHubSources returns an object that can list and get GitHubSources.
 func (s *gitHubSourceLister) GitHubSources(namespace string) GitHubSourceNamespaceLister {
-	return gitHubSourceNamespaceLister{indexer: s.indexer, namespace: namespace}
+	return gitHubSourceNamespaceLister{listers.NewNamespaced[*v1alpha1.GitHubSource](s.ResourceIndexer, namespace)}
 }
 
 // GitHubSourceNamespaceLister helps list and get GitHubSources.
@@ -74,26 +66,5 @@ type GitHubSourceNamespaceLister interface {
 // gitHubSourceNamespaceLister implements the GitHubSourceNamespaceLister
 // interface.
 type gitHubSourceNamespaceLister struct {
-	indexer   cache.Indexer
-	namespace string
-}
-
-// List lists all GitHubSources in the indexer for a given namespace.
-func (s gitHubSourceNamespaceLister) List(selector labels.Selector) (ret []*v1alpha1.GitHubSource, err error) {
-	err = cache.ListAllByNamespace(s.indexer, s.namespace, selector, func(m interface{}) {
-		ret = append(ret, m.(*v1alpha1.GitHubSource))
-	})
-	return ret, err
-}
-
-// Get retrieves the GitHubSource from the indexer for a given namespace and name.
-func (s gitHubSourceNamespaceLister) Get(name string) (*v1alpha1.GitHubSource, error) {
-	obj, exists, err := s.indexer.GetByKey(s.namespace + "/" + name)
-	if err != nil {
-		return nil, err
-	}
-	if !exists {
-		return nil, errors.NewNotFound(v1alpha1.Resource("githubsource"), name)
-	}
-	return obj.(*v1alpha1.GitHubSource), nil
+	listers.ResourceIndexer[*v1alpha1.GitHubSource]
 }
