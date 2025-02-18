@@ -19,10 +19,10 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/labels"
-	"k8s.io/client-go/listers"
-	"k8s.io/client-go/tools/cache"
-	v1alpha1 "knative.dev/eventing-github/pkg/apis/bindings/v1alpha1"
+	labels "k8s.io/apimachinery/pkg/labels"
+	listers "k8s.io/client-go/listers"
+	cache "k8s.io/client-go/tools/cache"
+	bindingsv1alpha1 "knative.dev/eventing-github/pkg/apis/bindings/v1alpha1"
 )
 
 // GitHubBindingLister helps list GitHubBindings.
@@ -30,7 +30,7 @@ import (
 type GitHubBindingLister interface {
 	// List lists all GitHubBindings in the indexer.
 	// Objects returned here must be treated as read-only.
-	List(selector labels.Selector) (ret []*v1alpha1.GitHubBinding, err error)
+	List(selector labels.Selector) (ret []*bindingsv1alpha1.GitHubBinding, err error)
 	// GitHubBindings returns an object that can list and get GitHubBindings.
 	GitHubBindings(namespace string) GitHubBindingNamespaceLister
 	GitHubBindingListerExpansion
@@ -38,17 +38,17 @@ type GitHubBindingLister interface {
 
 // gitHubBindingLister implements the GitHubBindingLister interface.
 type gitHubBindingLister struct {
-	listers.ResourceIndexer[*v1alpha1.GitHubBinding]
+	listers.ResourceIndexer[*bindingsv1alpha1.GitHubBinding]
 }
 
 // NewGitHubBindingLister returns a new GitHubBindingLister.
 func NewGitHubBindingLister(indexer cache.Indexer) GitHubBindingLister {
-	return &gitHubBindingLister{listers.New[*v1alpha1.GitHubBinding](indexer, v1alpha1.Resource("githubbinding"))}
+	return &gitHubBindingLister{listers.New[*bindingsv1alpha1.GitHubBinding](indexer, bindingsv1alpha1.Resource("githubbinding"))}
 }
 
 // GitHubBindings returns an object that can list and get GitHubBindings.
 func (s *gitHubBindingLister) GitHubBindings(namespace string) GitHubBindingNamespaceLister {
-	return gitHubBindingNamespaceLister{listers.NewNamespaced[*v1alpha1.GitHubBinding](s.ResourceIndexer, namespace)}
+	return gitHubBindingNamespaceLister{listers.NewNamespaced[*bindingsv1alpha1.GitHubBinding](s.ResourceIndexer, namespace)}
 }
 
 // GitHubBindingNamespaceLister helps list and get GitHubBindings.
@@ -56,15 +56,15 @@ func (s *gitHubBindingLister) GitHubBindings(namespace string) GitHubBindingName
 type GitHubBindingNamespaceLister interface {
 	// List lists all GitHubBindings in the indexer for a given namespace.
 	// Objects returned here must be treated as read-only.
-	List(selector labels.Selector) (ret []*v1alpha1.GitHubBinding, err error)
+	List(selector labels.Selector) (ret []*bindingsv1alpha1.GitHubBinding, err error)
 	// Get retrieves the GitHubBinding from the indexer for a given namespace and name.
 	// Objects returned here must be treated as read-only.
-	Get(name string) (*v1alpha1.GitHubBinding, error)
+	Get(name string) (*bindingsv1alpha1.GitHubBinding, error)
 	GitHubBindingNamespaceListerExpansion
 }
 
 // gitHubBindingNamespaceLister implements the GitHubBindingNamespaceLister
 // interface.
 type gitHubBindingNamespaceLister struct {
-	listers.ResourceIndexer[*v1alpha1.GitHubBinding]
+	listers.ResourceIndexer[*bindingsv1alpha1.GitHubBinding]
 }

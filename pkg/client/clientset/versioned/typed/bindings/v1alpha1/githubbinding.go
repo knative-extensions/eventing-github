@@ -19,13 +19,13 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"context"
+	context "context"
 
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	gentype "k8s.io/client-go/gentype"
-	v1alpha1 "knative.dev/eventing-github/pkg/apis/bindings/v1alpha1"
+	bindingsv1alpha1 "knative.dev/eventing-github/pkg/apis/bindings/v1alpha1"
 	scheme "knative.dev/eventing-github/pkg/client/clientset/versioned/scheme"
 )
 
@@ -37,33 +37,34 @@ type GitHubBindingsGetter interface {
 
 // GitHubBindingInterface has methods to work with GitHubBinding resources.
 type GitHubBindingInterface interface {
-	Create(ctx context.Context, gitHubBinding *v1alpha1.GitHubBinding, opts v1.CreateOptions) (*v1alpha1.GitHubBinding, error)
-	Update(ctx context.Context, gitHubBinding *v1alpha1.GitHubBinding, opts v1.UpdateOptions) (*v1alpha1.GitHubBinding, error)
+	Create(ctx context.Context, gitHubBinding *bindingsv1alpha1.GitHubBinding, opts v1.CreateOptions) (*bindingsv1alpha1.GitHubBinding, error)
+	Update(ctx context.Context, gitHubBinding *bindingsv1alpha1.GitHubBinding, opts v1.UpdateOptions) (*bindingsv1alpha1.GitHubBinding, error)
 	// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-	UpdateStatus(ctx context.Context, gitHubBinding *v1alpha1.GitHubBinding, opts v1.UpdateOptions) (*v1alpha1.GitHubBinding, error)
+	UpdateStatus(ctx context.Context, gitHubBinding *bindingsv1alpha1.GitHubBinding, opts v1.UpdateOptions) (*bindingsv1alpha1.GitHubBinding, error)
 	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
 	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1alpha1.GitHubBinding, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1alpha1.GitHubBindingList, error)
+	Get(ctx context.Context, name string, opts v1.GetOptions) (*bindingsv1alpha1.GitHubBinding, error)
+	List(ctx context.Context, opts v1.ListOptions) (*bindingsv1alpha1.GitHubBindingList, error)
 	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.GitHubBinding, err error)
+	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *bindingsv1alpha1.GitHubBinding, err error)
 	GitHubBindingExpansion
 }
 
 // gitHubBindings implements GitHubBindingInterface
 type gitHubBindings struct {
-	*gentype.ClientWithList[*v1alpha1.GitHubBinding, *v1alpha1.GitHubBindingList]
+	*gentype.ClientWithList[*bindingsv1alpha1.GitHubBinding, *bindingsv1alpha1.GitHubBindingList]
 }
 
 // newGitHubBindings returns a GitHubBindings
 func newGitHubBindings(c *BindingsV1alpha1Client, namespace string) *gitHubBindings {
 	return &gitHubBindings{
-		gentype.NewClientWithList[*v1alpha1.GitHubBinding, *v1alpha1.GitHubBindingList](
+		gentype.NewClientWithList[*bindingsv1alpha1.GitHubBinding, *bindingsv1alpha1.GitHubBindingList](
 			"githubbindings",
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			func() *v1alpha1.GitHubBinding { return &v1alpha1.GitHubBinding{} },
-			func() *v1alpha1.GitHubBindingList { return &v1alpha1.GitHubBindingList{} }),
+			func() *bindingsv1alpha1.GitHubBinding { return &bindingsv1alpha1.GitHubBinding{} },
+			func() *bindingsv1alpha1.GitHubBindingList { return &bindingsv1alpha1.GitHubBindingList{} },
+		),
 	}
 }

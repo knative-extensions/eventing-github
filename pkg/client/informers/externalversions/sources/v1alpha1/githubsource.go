@@ -19,24 +19,24 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"context"
+	context "context"
 	time "time"
 
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	watch "k8s.io/apimachinery/pkg/watch"
 	cache "k8s.io/client-go/tools/cache"
-	sourcesv1alpha1 "knative.dev/eventing-github/pkg/apis/sources/v1alpha1"
+	apissourcesv1alpha1 "knative.dev/eventing-github/pkg/apis/sources/v1alpha1"
 	versioned "knative.dev/eventing-github/pkg/client/clientset/versioned"
 	internalinterfaces "knative.dev/eventing-github/pkg/client/informers/externalversions/internalinterfaces"
-	v1alpha1 "knative.dev/eventing-github/pkg/client/listers/sources/v1alpha1"
+	sourcesv1alpha1 "knative.dev/eventing-github/pkg/client/listers/sources/v1alpha1"
 )
 
 // GitHubSourceInformer provides access to a shared informer and lister for
 // GitHubSources.
 type GitHubSourceInformer interface {
 	Informer() cache.SharedIndexInformer
-	Lister() v1alpha1.GitHubSourceLister
+	Lister() sourcesv1alpha1.GitHubSourceLister
 }
 
 type gitHubSourceInformer struct {
@@ -71,7 +71,7 @@ func NewFilteredGitHubSourceInformer(client versioned.Interface, namespace strin
 				return client.SourcesV1alpha1().GitHubSources(namespace).Watch(context.TODO(), options)
 			},
 		},
-		&sourcesv1alpha1.GitHubSource{},
+		&apissourcesv1alpha1.GitHubSource{},
 		resyncPeriod,
 		indexers,
 	)
@@ -82,9 +82,9 @@ func (f *gitHubSourceInformer) defaultInformer(client versioned.Interface, resyn
 }
 
 func (f *gitHubSourceInformer) Informer() cache.SharedIndexInformer {
-	return f.factory.InformerFor(&sourcesv1alpha1.GitHubSource{}, f.defaultInformer)
+	return f.factory.InformerFor(&apissourcesv1alpha1.GitHubSource{}, f.defaultInformer)
 }
 
-func (f *gitHubSourceInformer) Lister() v1alpha1.GitHubSourceLister {
-	return v1alpha1.NewGitHubSourceLister(f.Informer().GetIndexer())
+func (f *gitHubSourceInformer) Lister() sourcesv1alpha1.GitHubSourceLister {
+	return sourcesv1alpha1.NewGitHubSourceLister(f.Informer().GetIndexer())
 }

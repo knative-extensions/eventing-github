@@ -19,13 +19,13 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"context"
+	context "context"
 
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	gentype "k8s.io/client-go/gentype"
-	v1alpha1 "knative.dev/eventing-github/pkg/apis/sources/v1alpha1"
+	sourcesv1alpha1 "knative.dev/eventing-github/pkg/apis/sources/v1alpha1"
 	scheme "knative.dev/eventing-github/pkg/client/clientset/versioned/scheme"
 )
 
@@ -37,33 +37,34 @@ type GitHubSourcesGetter interface {
 
 // GitHubSourceInterface has methods to work with GitHubSource resources.
 type GitHubSourceInterface interface {
-	Create(ctx context.Context, gitHubSource *v1alpha1.GitHubSource, opts v1.CreateOptions) (*v1alpha1.GitHubSource, error)
-	Update(ctx context.Context, gitHubSource *v1alpha1.GitHubSource, opts v1.UpdateOptions) (*v1alpha1.GitHubSource, error)
+	Create(ctx context.Context, gitHubSource *sourcesv1alpha1.GitHubSource, opts v1.CreateOptions) (*sourcesv1alpha1.GitHubSource, error)
+	Update(ctx context.Context, gitHubSource *sourcesv1alpha1.GitHubSource, opts v1.UpdateOptions) (*sourcesv1alpha1.GitHubSource, error)
 	// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-	UpdateStatus(ctx context.Context, gitHubSource *v1alpha1.GitHubSource, opts v1.UpdateOptions) (*v1alpha1.GitHubSource, error)
+	UpdateStatus(ctx context.Context, gitHubSource *sourcesv1alpha1.GitHubSource, opts v1.UpdateOptions) (*sourcesv1alpha1.GitHubSource, error)
 	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
 	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1alpha1.GitHubSource, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1alpha1.GitHubSourceList, error)
+	Get(ctx context.Context, name string, opts v1.GetOptions) (*sourcesv1alpha1.GitHubSource, error)
+	List(ctx context.Context, opts v1.ListOptions) (*sourcesv1alpha1.GitHubSourceList, error)
 	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.GitHubSource, err error)
+	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *sourcesv1alpha1.GitHubSource, err error)
 	GitHubSourceExpansion
 }
 
 // gitHubSources implements GitHubSourceInterface
 type gitHubSources struct {
-	*gentype.ClientWithList[*v1alpha1.GitHubSource, *v1alpha1.GitHubSourceList]
+	*gentype.ClientWithList[*sourcesv1alpha1.GitHubSource, *sourcesv1alpha1.GitHubSourceList]
 }
 
 // newGitHubSources returns a GitHubSources
 func newGitHubSources(c *SourcesV1alpha1Client, namespace string) *gitHubSources {
 	return &gitHubSources{
-		gentype.NewClientWithList[*v1alpha1.GitHubSource, *v1alpha1.GitHubSourceList](
+		gentype.NewClientWithList[*sourcesv1alpha1.GitHubSource, *sourcesv1alpha1.GitHubSourceList](
 			"githubsources",
 			c.RESTClient(),
 			scheme.ParameterCodec,
 			namespace,
-			func() *v1alpha1.GitHubSource { return &v1alpha1.GitHubSource{} },
-			func() *v1alpha1.GitHubSourceList { return &v1alpha1.GitHubSourceList{} }),
+			func() *sourcesv1alpha1.GitHubSource { return &sourcesv1alpha1.GitHubSource{} },
+			func() *sourcesv1alpha1.GitHubSourceList { return &sourcesv1alpha1.GitHubSourceList{} },
+		),
 	}
 }

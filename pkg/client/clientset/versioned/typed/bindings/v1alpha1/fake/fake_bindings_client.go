@@ -29,7 +29,7 @@ type FakeBindingsV1alpha1 struct {
 }
 
 func (c *FakeBindingsV1alpha1) GitHubBindings(namespace string) v1alpha1.GitHubBindingInterface {
-	return &FakeGitHubBindings{c, namespace}
+	return newFakeGitHubBindings(c, namespace)
 }
 
 // RESTClient returns a RESTClient that is used to communicate
