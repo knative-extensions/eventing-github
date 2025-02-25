@@ -19,24 +19,24 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"context"
+	context "context"
 	time "time"
 
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	watch "k8s.io/apimachinery/pkg/watch"
 	cache "k8s.io/client-go/tools/cache"
-	bindingsv1alpha1 "knative.dev/eventing-github/pkg/apis/bindings/v1alpha1"
+	apisbindingsv1alpha1 "knative.dev/eventing-github/pkg/apis/bindings/v1alpha1"
 	versioned "knative.dev/eventing-github/pkg/client/clientset/versioned"
 	internalinterfaces "knative.dev/eventing-github/pkg/client/informers/externalversions/internalinterfaces"
-	v1alpha1 "knative.dev/eventing-github/pkg/client/listers/bindings/v1alpha1"
+	bindingsv1alpha1 "knative.dev/eventing-github/pkg/client/listers/bindings/v1alpha1"
 )
 
 // GitHubBindingInformer provides access to a shared informer and lister for
 // GitHubBindings.
 type GitHubBindingInformer interface {
 	Informer() cache.SharedIndexInformer
-	Lister() v1alpha1.GitHubBindingLister
+	Lister() bindingsv1alpha1.GitHubBindingLister
 }
 
 type gitHubBindingInformer struct {
@@ -71,7 +71,7 @@ func NewFilteredGitHubBindingInformer(client versioned.Interface, namespace stri
 				return client.BindingsV1alpha1().GitHubBindings(namespace).Watch(context.TODO(), options)
 			},
 		},
-		&bindingsv1alpha1.GitHubBinding{},
+		&apisbindingsv1alpha1.GitHubBinding{},
 		resyncPeriod,
 		indexers,
 	)
@@ -82,9 +82,9 @@ func (f *gitHubBindingInformer) defaultInformer(client versioned.Interface, resy
 }
 
 func (f *gitHubBindingInformer) Informer() cache.SharedIndexInformer {
-	return f.factory.InformerFor(&bindingsv1alpha1.GitHubBinding{}, f.defaultInformer)
+	return f.factory.InformerFor(&apisbindingsv1alpha1.GitHubBinding{}, f.defaultInformer)
 }
 
-func (f *gitHubBindingInformer) Lister() v1alpha1.GitHubBindingLister {
-	return v1alpha1.NewGitHubBindingLister(f.Informer().GetIndexer())
+func (f *gitHubBindingInformer) Lister() bindingsv1alpha1.GitHubBindingLister {
+	return bindingsv1alpha1.NewGitHubBindingLister(f.Informer().GetIndexer())
 }

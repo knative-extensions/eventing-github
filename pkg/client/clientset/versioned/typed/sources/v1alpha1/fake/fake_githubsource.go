@@ -19,129 +19,34 @@ limitations under the License.
 package fake
 
 import (
-	"context"
-
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	labels "k8s.io/apimachinery/pkg/labels"
-	types "k8s.io/apimachinery/pkg/types"
-	watch "k8s.io/apimachinery/pkg/watch"
-	testing "k8s.io/client-go/testing"
+	gentype "k8s.io/client-go/gentype"
 	v1alpha1 "knative.dev/eventing-github/pkg/apis/sources/v1alpha1"
+	sourcesv1alpha1 "knative.dev/eventing-github/pkg/client/clientset/versioned/typed/sources/v1alpha1"
 )
 
-// FakeGitHubSources implements GitHubSourceInterface
-type FakeGitHubSources struct {
+// fakeGitHubSources implements GitHubSourceInterface
+type fakeGitHubSources struct {
+	*gentype.FakeClientWithList[*v1alpha1.GitHubSource, *v1alpha1.GitHubSourceList]
 	Fake *FakeSourcesV1alpha1
-	ns   string
 }
 
-var githubsourcesResource = v1alpha1.SchemeGroupVersion.WithResource("githubsources")
-
-var githubsourcesKind = v1alpha1.SchemeGroupVersion.WithKind("GitHubSource")
-
-// Get takes name of the gitHubSource, and returns the corresponding gitHubSource object, and an error if there is any.
-func (c *FakeGitHubSources) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.GitHubSource, err error) {
-	emptyResult := &v1alpha1.GitHubSource{}
-	obj, err := c.Fake.
-		Invokes(testing.NewGetActionWithOptions(githubsourcesResource, c.ns, name, options), emptyResult)
-
-	if obj == nil {
-		return emptyResult, err
+func newFakeGitHubSources(fake *FakeSourcesV1alpha1, namespace string) sourcesv1alpha1.GitHubSourceInterface {
+	return &fakeGitHubSources{
+		gentype.NewFakeClientWithList[*v1alpha1.GitHubSource, *v1alpha1.GitHubSourceList](
+			fake.Fake,
+			namespace,
+			v1alpha1.SchemeGroupVersion.WithResource("githubsources"),
+			v1alpha1.SchemeGroupVersion.WithKind("GitHubSource"),
+			func() *v1alpha1.GitHubSource { return &v1alpha1.GitHubSource{} },
+			func() *v1alpha1.GitHubSourceList { return &v1alpha1.GitHubSourceList{} },
+			func(dst, src *v1alpha1.GitHubSourceList) { dst.ListMeta = src.ListMeta },
+			func(list *v1alpha1.GitHubSourceList) []*v1alpha1.GitHubSource {
+				return gentype.ToPointerSlice(list.Items)
+			},
+			func(list *v1alpha1.GitHubSourceList, items []*v1alpha1.GitHubSource) {
+				list.Items = gentype.FromPointerSlice(items)
+			},
+		),
+		fake,
 	}
-	return obj.(*v1alpha1.GitHubSource), err
-}
-
-// List takes label and field selectors, and returns the list of GitHubSources that match those selectors.
-func (c *FakeGitHubSources) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha1.GitHubSourceList, err error) {
-	emptyResult := &v1alpha1.GitHubSourceList{}
-	obj, err := c.Fake.
-		Invokes(testing.NewListActionWithOptions(githubsourcesResource, githubsourcesKind, c.ns, opts), emptyResult)
-
-	if obj == nil {
-		return emptyResult, err
-	}
-
-	label, _, _ := testing.ExtractFromListOptions(opts)
-	if label == nil {
-		label = labels.Everything()
-	}
-	list := &v1alpha1.GitHubSourceList{ListMeta: obj.(*v1alpha1.GitHubSourceList).ListMeta}
-	for _, item := range obj.(*v1alpha1.GitHubSourceList).Items {
-		if label.Matches(labels.Set(item.Labels)) {
-			list.Items = append(list.Items, item)
-		}
-	}
-	return list, err
-}
-
-// Watch returns a watch.Interface that watches the requested gitHubSources.
-func (c *FakeGitHubSources) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
-	return c.Fake.
-		InvokesWatch(testing.NewWatchActionWithOptions(githubsourcesResource, c.ns, opts))
-
-}
-
-// Create takes the representation of a gitHubSource and creates it.  Returns the server's representation of the gitHubSource, and an error, if there is any.
-func (c *FakeGitHubSources) Create(ctx context.Context, gitHubSource *v1alpha1.GitHubSource, opts v1.CreateOptions) (result *v1alpha1.GitHubSource, err error) {
-	emptyResult := &v1alpha1.GitHubSource{}
-	obj, err := c.Fake.
-		Invokes(testing.NewCreateActionWithOptions(githubsourcesResource, c.ns, gitHubSource, opts), emptyResult)
-
-	if obj == nil {
-		return emptyResult, err
-	}
-	return obj.(*v1alpha1.GitHubSource), err
-}
-
-// Update takes the representation of a gitHubSource and updates it. Returns the server's representation of the gitHubSource, and an error, if there is any.
-func (c *FakeGitHubSources) Update(ctx context.Context, gitHubSource *v1alpha1.GitHubSource, opts v1.UpdateOptions) (result *v1alpha1.GitHubSource, err error) {
-	emptyResult := &v1alpha1.GitHubSource{}
-	obj, err := c.Fake.
-		Invokes(testing.NewUpdateActionWithOptions(githubsourcesResource, c.ns, gitHubSource, opts), emptyResult)
-
-	if obj == nil {
-		return emptyResult, err
-	}
-	return obj.(*v1alpha1.GitHubSource), err
-}
-
-// UpdateStatus was generated because the type contains a Status member.
-// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakeGitHubSources) UpdateStatus(ctx context.Context, gitHubSource *v1alpha1.GitHubSource, opts v1.UpdateOptions) (result *v1alpha1.GitHubSource, err error) {
-	emptyResult := &v1alpha1.GitHubSource{}
-	obj, err := c.Fake.
-		Invokes(testing.NewUpdateSubresourceActionWithOptions(githubsourcesResource, "status", c.ns, gitHubSource, opts), emptyResult)
-
-	if obj == nil {
-		return emptyResult, err
-	}
-	return obj.(*v1alpha1.GitHubSource), err
-}
-
-// Delete takes name of the gitHubSource and deletes it. Returns an error if one occurs.
-func (c *FakeGitHubSources) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
-	_, err := c.Fake.
-		Invokes(testing.NewDeleteActionWithOptions(githubsourcesResource, c.ns, name, opts), &v1alpha1.GitHubSource{})
-
-	return err
-}
-
-// DeleteCollection deletes a collection of objects.
-func (c *FakeGitHubSources) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
-	action := testing.NewDeleteCollectionActionWithOptions(githubsourcesResource, c.ns, opts, listOpts)
-
-	_, err := c.Fake.Invokes(action, &v1alpha1.GitHubSourceList{})
-	return err
-}
-
-// Patch applies the patch and returns the patched gitHubSource.
-func (c *FakeGitHubSources) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.GitHubSource, err error) {
-	emptyResult := &v1alpha1.GitHubSource{}
-	obj, err := c.Fake.
-		Invokes(testing.NewPatchSubresourceActionWithOptions(githubsourcesResource, c.ns, name, pt, data, opts, subresources...), emptyResult)
-
-	if obj == nil {
-		return emptyResult, err
-	}
-	return obj.(*v1alpha1.GitHubSource), err
 }

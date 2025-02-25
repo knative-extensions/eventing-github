@@ -29,7 +29,7 @@ type FakeSourcesV1alpha1 struct {
 }
 
 func (c *FakeSourcesV1alpha1) GitHubSources(namespace string) v1alpha1.GitHubSourceInterface {
-	return &FakeGitHubSources{c, namespace}
+	return newFakeGitHubSources(c, namespace)
 }
 
 // RESTClient returns a RESTClient that is used to communicate

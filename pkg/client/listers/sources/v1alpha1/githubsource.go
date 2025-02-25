@@ -19,10 +19,10 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"k8s.io/apimachinery/pkg/labels"
-	"k8s.io/client-go/listers"
-	"k8s.io/client-go/tools/cache"
-	v1alpha1 "knative.dev/eventing-github/pkg/apis/sources/v1alpha1"
+	labels "k8s.io/apimachinery/pkg/labels"
+	listers "k8s.io/client-go/listers"
+	cache "k8s.io/client-go/tools/cache"
+	sourcesv1alpha1 "knative.dev/eventing-github/pkg/apis/sources/v1alpha1"
 )
 
 // GitHubSourceLister helps list GitHubSources.
@@ -30,7 +30,7 @@ import (
 type GitHubSourceLister interface {
 	// List lists all GitHubSources in the indexer.
 	// Objects returned here must be treated as read-only.
-	List(selector labels.Selector) (ret []*v1alpha1.GitHubSource, err error)
+	List(selector labels.Selector) (ret []*sourcesv1alpha1.GitHubSource, err error)
 	// GitHubSources returns an object that can list and get GitHubSources.
 	GitHubSources(namespace string) GitHubSourceNamespaceLister
 	GitHubSourceListerExpansion
@@ -38,17 +38,17 @@ type GitHubSourceLister interface {
 
 // gitHubSourceLister implements the GitHubSourceLister interface.
 type gitHubSourceLister struct {
-	listers.ResourceIndexer[*v1alpha1.GitHubSource]
+	listers.ResourceIndexer[*sourcesv1alpha1.GitHubSource]
 }
 
 // NewGitHubSourceLister returns a new GitHubSourceLister.
 func NewGitHubSourceLister(indexer cache.Indexer) GitHubSourceLister {
-	return &gitHubSourceLister{listers.New[*v1alpha1.GitHubSource](indexer, v1alpha1.Resource("githubsource"))}
+	return &gitHubSourceLister{listers.New[*sourcesv1alpha1.GitHubSource](indexer, sourcesv1alpha1.Resource("githubsource"))}
 }
 
 // GitHubSources returns an object that can list and get GitHubSources.
 func (s *gitHubSourceLister) GitHubSources(namespace string) GitHubSourceNamespaceLister {
-	return gitHubSourceNamespaceLister{listers.NewNamespaced[*v1alpha1.GitHubSource](s.ResourceIndexer, namespace)}
+	return gitHubSourceNamespaceLister{listers.NewNamespaced[*sourcesv1alpha1.GitHubSource](s.ResourceIndexer, namespace)}
 }
 
 // GitHubSourceNamespaceLister helps list and get GitHubSources.
@@ -56,15 +56,15 @@ func (s *gitHubSourceLister) GitHubSources(namespace string) GitHubSourceNamespa
 type GitHubSourceNamespaceLister interface {
 	// List lists all GitHubSources in the indexer for a given namespace.
 	// Objects returned here must be treated as read-only.
-	List(selector labels.Selector) (ret []*v1alpha1.GitHubSource, err error)
+	List(selector labels.Selector) (ret []*sourcesv1alpha1.GitHubSource, err error)
 	// Get retrieves the GitHubSource from the indexer for a given namespace and name.
 	// Objects returned here must be treated as read-only.
-	Get(name string) (*v1alpha1.GitHubSource, error)
+	Get(name string) (*sourcesv1alpha1.GitHubSource, error)
 	GitHubSourceNamespaceListerExpansion
 }
 
 // gitHubSourceNamespaceLister implements the GitHubSourceNamespaceLister
 // interface.
 type gitHubSourceNamespaceLister struct {
-	listers.ResourceIndexer[*v1alpha1.GitHubSource]
+	listers.ResourceIndexer[*sourcesv1alpha1.GitHubSource]
 }
