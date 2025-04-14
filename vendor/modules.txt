@@ -27,6 +27,14 @@ github.com/census-instrumentation/opencensus-proto/gen-go/agent/trace/v1
 github.com/census-instrumentation/opencensus-proto/gen-go/metrics/v1
 github.com/census-instrumentation/opencensus-proto/gen-go/resource/v1
 github.com/census-instrumentation/opencensus-proto/gen-go/trace/v1
+# github.com/cert-manager/cert-manager v1.16.3
+## explicit; go 1.22.0
+github.com/cert-manager/cert-manager/pkg/apis/acme
+github.com/cert-manager/cert-manager/pkg/apis/acme/v1
+github.com/cert-manager/cert-manager/pkg/apis/certmanager
+github.com/cert-manager/cert-manager/pkg/apis/certmanager/v1
+github.com/cert-manager/cert-manager/pkg/apis/meta
+github.com/cert-manager/cert-manager/pkg/apis/meta/v1
 # github.com/cespare/xxhash/v2 v2.3.0
 ## explicit; go 1.11
 github.com/cespare/xxhash/v2
@@ -124,8 +132,8 @@ github.com/google/gnostic-models/extensions
 github.com/google/gnostic-models/jsonschema
 github.com/google/gnostic-models/openapiv2
 github.com/google/gnostic-models/openapiv3
-# github.com/google/go-cmp v0.6.0
-## explicit; go 1.13
+# github.com/google/go-cmp v0.7.0
+## explicit; go 1.21
 github.com/google/go-cmp/cmp
 github.com/google/go-cmp/cmp/cmpopts
 github.com/google/go-cmp/cmp/internal/diff
@@ -138,8 +146,8 @@ github.com/google/go-containerregistry/pkg/name
 # github.com/google/go-github/v31 v31.0.0
 ## explicit; go 1.13
 github.com/google/go-github/v31/github
-# github.com/google/go-querystring v1.0.0
-## explicit
+# github.com/google/go-querystring v1.1.0
+## explicit; go 1.10
 github.com/google/go-querystring/query
 # github.com/google/gofuzz v1.2.0
 ## explicit; go 1.12
@@ -294,8 +302,8 @@ go.uber.org/zap/internal/stacktrace
 go.uber.org/zap/internal/ztest
 go.uber.org/zap/zapcore
 go.uber.org/zap/zaptest
-# golang.org/x/crypto v0.33.0
-## explicit; go 1.20
+# golang.org/x/crypto v0.36.0
+## explicit; go 1.23.0
 golang.org/x/crypto/cast5
 golang.org/x/crypto/openpgp
 golang.org/x/crypto/openpgp/armor
@@ -304,13 +312,13 @@ golang.org/x/crypto/openpgp/errors
 golang.org/x/crypto/openpgp/packet
 golang.org/x/crypto/openpgp/s2k
 golang.org/x/crypto/pbkdf2
-# golang.org/x/mod v0.23.0
-## explicit; go 1.22.0
+# golang.org/x/mod v0.24.0
+## explicit; go 1.23.0
 golang.org/x/mod/internal/lazyregexp
 golang.org/x/mod/module
 golang.org/x/mod/semver
-# golang.org/x/net v0.35.0
-## explicit; go 1.18
+# golang.org/x/net v0.38.0
+## explicit; go 1.23.0
 golang.org/x/net/http/httpguts
 golang.org/x/net/http2
 golang.org/x/net/http2/h2c
@@ -323,20 +331,20 @@ golang.org/x/net/trace
 ## explicit; go 1.18
 golang.org/x/oauth2
 golang.org/x/oauth2/internal
-# golang.org/x/sync v0.11.0
-## explicit; go 1.18
+# golang.org/x/sync v0.13.0
+## explicit; go 1.23.0
 golang.org/x/sync/errgroup
 golang.org/x/sync/semaphore
-# golang.org/x/sys v0.30.0
-## explicit; go 1.18
+# golang.org/x/sys v0.31.0
+## explicit; go 1.23.0
 golang.org/x/sys/plan9
 golang.org/x/sys/unix
 golang.org/x/sys/windows
-# golang.org/x/term v0.29.0
-## explicit; go 1.18
+# golang.org/x/term v0.30.0
+## explicit; go 1.23.0
 golang.org/x/term
-# golang.org/x/text v0.22.0
-## explicit; go 1.18
+# golang.org/x/text v0.23.0
+## explicit; go 1.23.0
 golang.org/x/text/cases
 golang.org/x/text/internal
 golang.org/x/text/internal/language
@@ -350,8 +358,8 @@ golang.org/x/text/unicode/norm
 # golang.org/x/time v0.10.0
 ## explicit; go 1.18
 golang.org/x/time/rate
-# golang.org/x/tools v0.30.0
-## explicit; go 1.22.0
+# golang.org/x/tools v0.31.0
+## explicit; go 1.23.0
 golang.org/x/tools/go/ast/astutil
 golang.org/x/tools/go/gcexportdata
 golang.org/x/tools/go/packages
@@ -374,7 +382,7 @@ golang.org/x/tools/internal/stdlib
 golang.org/x/tools/internal/typeparams
 golang.org/x/tools/internal/typesinternal
 golang.org/x/tools/internal/versions
-# gomodules.xyz/jsonpatch/v2 v2.4.0
+# gomodules.xyz/jsonpatch/v2 v2.5.0
 ## explicit; go 1.20
 gomodules.xyz/jsonpatch/v2
 # google.golang.org/api v0.198.0
@@ -386,13 +394,14 @@ google.golang.org/genproto/googleapis/api/httpbody
 # google.golang.org/genproto/googleapis/rpc v0.0.0-20250207221924-e9438ea467c6
 ## explicit; go 1.22
 google.golang.org/genproto/googleapis/rpc/status
-# google.golang.org/grpc v1.70.0
-## explicit; go 1.22
+# google.golang.org/grpc v1.71.1
+## explicit; go 1.22.0
 google.golang.org/grpc
 google.golang.org/grpc/attributes
 google.golang.org/grpc/backoff
 google.golang.org/grpc/balancer
 google.golang.org/grpc/balancer/base
+google.golang.org/grpc/balancer/endpointsharding
 google.golang.org/grpc/balancer/grpclb/state
 google.golang.org/grpc/balancer/pickfirst
 google.golang.org/grpc/balancer/pickfirst/internal
@@ -425,7 +434,9 @@ google.golang.org/grpc/internal/grpcutil
 google.golang.org/grpc/internal/idle
 google.golang.org/grpc/internal/metadata
 google.golang.org/grpc/internal/pretty
+google.golang.org/grpc/internal/proxyattributes
 google.golang.org/grpc/internal/resolver
+google.golang.org/grpc/internal/resolver/delegatingresolver
 google.golang.org/grpc/internal/resolver/dns
 google.golang.org/grpc/internal/resolver/dns/internal
 google.golang.org/grpc/internal/resolver/passthrough
@@ -446,8 +457,8 @@ google.golang.org/grpc/serviceconfig
 google.golang.org/grpc/stats
 google.golang.org/grpc/status
 google.golang.org/grpc/tap
-# google.golang.org/protobuf v1.36.5
-## explicit; go 1.21
+# google.golang.org/protobuf v1.36.6
+## explicit; go 1.22
 google.golang.org/protobuf/encoding/protodelim
 google.golang.org/protobuf/encoding/protojson
 google.golang.org/protobuf/encoding/prototext
@@ -1036,7 +1047,7 @@ k8s.io/utils/net
 k8s.io/utils/pointer
 k8s.io/utils/ptr
 k8s.io/utils/trace
-# knative.dev/eventing v0.44.1-0.20250218063550-9a7c6d5633c5
+# knative.dev/eventing v0.44.1-0.20250411200914-6365d8957fdf
 ## explicit; go 1.23.0
 knative.dev/eventing/pkg/adapter/v2
 knative.dev/eventing/pkg/adapter/v2/test
@@ -1103,15 +1114,15 @@ knative.dev/eventing/pkg/metrics
 knative.dev/eventing/pkg/metrics/source
 knative.dev/eventing/pkg/observability
 knative.dev/eventing/pkg/observability/client
-# knative.dev/hack v0.0.0-20250217122557-ce4c934f30e5
+# knative.dev/hack v0.0.0-20250331013814-c577ed9f7775
 ## explicit; go 1.21
 knative.dev/hack
-# knative.dev/networking v0.0.0-20250217154350-2cde4327c6c8
+# knative.dev/networking v0.0.0-20250331014822-5ce28a23124f
 ## explicit; go 1.23.0
 knative.dev/networking/pkg/apis/networking
 knative.dev/networking/pkg/apis/networking/v1alpha1
 knative.dev/networking/pkg/config
-# knative.dev/pkg v0.0.0-20250218011850-c925de2a3f07
+# knative.dev/pkg v0.0.0-20250411133814-a8e20d9db3aa
 ## explicit; go 1.23.0
 knative.dev/pkg/apis
 knative.dev/pkg/apis/duck
@@ -1183,7 +1194,7 @@ knative.dev/pkg/webhook/psbinding
 knative.dev/pkg/webhook/resourcesemantics
 knative.dev/pkg/webhook/resourcesemantics/defaulting
 knative.dev/pkg/webhook/resourcesemantics/validation
-# knative.dev/serving v0.44.1-0.20250218133651-6da3d87e4d86
+# knative.dev/serving v0.44.1-0.20250413223115-3d830a0420c2
 ## explicit; go 1.23.0
 knative.dev/serving/pkg/apis/autoscaling
 knative.dev/serving/pkg/apis/autoscaling/v1alpha1
@@ -1213,6 +1224,9 @@ knative.dev/serving/pkg/client/listers/autoscaling/v1alpha1
 knative.dev/serving/pkg/client/listers/serving/v1
 knative.dev/serving/pkg/client/listers/serving/v1beta1
 knative.dev/serving/pkg/networking
+# sigs.k8s.io/gateway-api v1.1.0
+## explicit; go 1.22.0
+sigs.k8s.io/gateway-api/apis/v1
 # sigs.k8s.io/json v0.0.0-20241014173422-cfa47c3a1cc8
 ## explicit; go 1.23
 sigs.k8s.io/json
