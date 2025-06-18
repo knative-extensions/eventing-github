@@ -22,4 +22,7 @@ package tools
 import (
 	_ "knative.dev/hack"
 	_ "knative.dev/pkg/hack"
+
+	// K8s code generation tools
+	_ "k8s.io/code-generator/cmd/validation-gen"
 )

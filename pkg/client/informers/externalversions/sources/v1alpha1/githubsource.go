@@ -62,13 +62,25 @@ func NewFilteredGitHubSourceInformer(client versioned.Interface, namespace strin
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.SourcesV1alpha1().GitHubSources(namespace).List(context.TODO(), options)
+				return client.SourcesV1alpha1().GitHubSources(namespace).List(context.Background(), options)
 			},
 			WatchFunc: func(options v1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.SourcesV1alpha1().GitHubSources(namespace).Watch(context.TODO(), options)
+				return client.SourcesV1alpha1().GitHubSources(namespace).Watch(context.Background(), options)
+			},
+			ListWithContextFunc: func(ctx context.Context, options v1.ListOptions) (runtime.Object, error) {
+				if tweakListOptions != nil {
+					tweakListOptions(&options)
+				}
+				return client.SourcesV1alpha1().GitHubSources(namespace).List(ctx, options)
+			},
+			WatchFuncWithContext: func(ctx context.Context, options v1.ListOptions) (watch.Interface, error) {
+				if tweakListOptions != nil {
+					tweakListOptions(&options)
+				}
+				return client.SourcesV1alpha1().GitHubSources(namespace).Watch(ctx, options)
 			},
 		},
 		&apissourcesv1alpha1.GitHubSource{},
