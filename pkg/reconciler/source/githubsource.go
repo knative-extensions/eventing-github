@@ -228,7 +228,7 @@ func (r *Reconciler) reconcileReceiveAdapter(ctx context.Context, source *source
 			// Error was something other than NotFound
 			return nil, err
 		} else if !metav1.IsControlledBy(ksvc, source) {
-			return nil, fmt.Errorf("Service %q is not owned by GitHubSource %q", ksvc.Name, source.Name)
+			return nil, fmt.Errorf("service %q is not owned by GitHubSource %q", ksvc.Name, source.Name)
 		}
 		return ksvc, nil
 	}
