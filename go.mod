@@ -11,14 +11,14 @@ require (
 	go.uber.org/zap v1.27.0
 	golang.org/x/oauth2 v0.30.0
 	gopkg.in/go-playground/webhooks.v5 v5.13.0
-	k8s.io/api v0.33.4
-	k8s.io/apimachinery v0.33.4
-	k8s.io/client-go v0.33.4
-	k8s.io/code-generator v0.33.4
-	knative.dev/eventing v0.46.1-0.20250926075628-bfd6957835e4
+	k8s.io/api v0.33.5
+	k8s.io/apimachinery v0.33.5
+	k8s.io/client-go v0.33.5
+	k8s.io/code-generator v0.33.5
+	knative.dev/eventing v0.46.1-0.20251002211605-5828b491e837
 	knative.dev/hack v0.0.0-20250902153942-1499de21e119
-	knative.dev/pkg v0.0.0-20250915135827-db4c336acdbe
-	knative.dev/serving v0.46.1-0.20250929181602-a026eae5e127
+	knative.dev/pkg v0.0.0-20251001003403-1e71536171b9
+	knative.dev/serving v0.46.1-0.20251002172205-561f348677c0
 )
 
 require (
@@ -109,8 +109,8 @@ require (
 	gopkg.in/evanphx/json-patch.v4 v4.12.0 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	k8s.io/apiextensions-apiserver v0.33.4 // indirect
-	k8s.io/apiserver v0.33.4 // indirect
+	k8s.io/apiextensions-apiserver v0.33.5 // indirect
+	k8s.io/apiserver v0.33.5 // indirect
 	k8s.io/gengo/v2 v2.0.0-20250207200755-1244d31929d7 // indirect
 	k8s.io/klog/v2 v2.130.1 // indirect
 	k8s.io/kube-openapi v0.0.0-20250318190949-c8a335a9a2ff // indirect
