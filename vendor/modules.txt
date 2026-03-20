@@ -460,7 +460,7 @@ google.golang.org/genproto/googleapis/api/httpbody
 ## explicit; go 1.24.0
 google.golang.org/genproto/googleapis/rpc/errdetails
 google.golang.org/genproto/googleapis/rpc/status
-# google.golang.org/grpc v1.79.2
+# google.golang.org/grpc v1.79.3
 ## explicit; go 1.24.0
 google.golang.org/grpc
 google.golang.org/grpc/attributes
@@ -1126,7 +1126,7 @@ k8s.io/utils/net
 k8s.io/utils/pointer
 k8s.io/utils/ptr
 k8s.io/utils/trace
-# knative.dev/eventing v0.48.1-0.20260316031422-ce3fe6b62f97
+# knative.dev/eventing v0.48.1-0.20260318123800-cb8edb94867e
 ## explicit; go 1.25.0
 knative.dev/eventing/pkg/adapter/v2
 knative.dev/eventing/pkg/adapter/v2/test
@@ -1194,15 +1194,15 @@ knative.dev/eventing/pkg/observability
 knative.dev/eventing/pkg/observability/configmap
 knative.dev/eventing/pkg/observability/otel
 knative.dev/eventing/pkg/utils
-# knative.dev/hack v0.0.0-20260310014051-c448fdb867e2
+# knative.dev/hack v0.0.0-20260318014029-7eede7fdcbad
 ## explicit; go 1.24
 knative.dev/hack
-# knative.dev/networking v0.0.0-20260316020026-a339c355a2b2
+# knative.dev/networking v0.0.0-20260317015751-91b576b3d619
 ## explicit; go 1.25.0
 knative.dev/networking/pkg/apis/networking
 knative.dev/networking/pkg/apis/networking/v1alpha1
 knative.dev/networking/pkg/config
-# knative.dev/pkg v0.0.0-20260317082650-91e176852006
+# knative.dev/pkg v0.0.0-20260319144801-8c68e18a5cc7
 ## explicit; go 1.25.0
 knative.dev/pkg/apis
 knative.dev/pkg/apis/duck
@@ -1281,7 +1281,7 @@ knative.dev/pkg/webhook/psbinding
 knative.dev/pkg/webhook/resourcesemantics
 knative.dev/pkg/webhook/resourcesemantics/defaulting
 knative.dev/pkg/webhook/resourcesemantics/validation
-# knative.dev/serving v0.48.1-0.20260317123251-fe4c325b7af9
+# knative.dev/serving v0.48.1-0.20260318220159-5237de8fe037
 ## explicit; go 1.25.0
 knative.dev/serving/pkg/apis/autoscaling
 knative.dev/serving/pkg/apis/autoscaling/v1alpha1
