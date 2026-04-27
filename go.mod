@@ -15,10 +15,10 @@ require (
 	k8s.io/apimachinery v0.35.4
 	k8s.io/client-go v0.35.4
 	k8s.io/code-generator v0.35.4
-	knative.dev/eventing v0.48.1-0.20260421222011-4c2bc608123c
+	knative.dev/eventing v0.48.1-0.20260424165618-9ba4c6c223fe
 	knative.dev/hack v0.0.0-20260421155212-aeb7b4a9bf96
 	knative.dev/pkg v0.0.0-20260422015212-ec452872dcc1
-	knative.dev/serving v0.48.1-0.20260421173012-bbc132d832f2
+	knative.dev/serving v0.48.1-0.20260425200516-b85cf85d31db
 )
 
 require (
@@ -37,7 +37,7 @@ require (
 	github.com/evanphx/json-patch/v5 v5.9.11 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/fxamacker/cbor/v2 v2.9.0 // indirect
-	github.com/go-jose/go-jose/v3 v3.0.4 // indirect
+	github.com/go-jose/go-jose/v3 v3.0.5 // indirect
 	github.com/go-logr/logr v1.4.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-logr/zapr v1.3.0 // indirect
@@ -113,7 +113,7 @@ require (
 	k8s.io/klog/v2 v2.130.1 // indirect
 	k8s.io/kube-openapi v0.0.0-20250910181357-589584f1c912 // indirect
 	k8s.io/utils v0.0.0-20251002143259-bc988d571ff4 // indirect
-	knative.dev/networking v0.0.0-20260420183029-2cde1086678d // indirect
+	knative.dev/networking v0.0.0-20260421015711-652da006c95d // indirect
 	sigs.k8s.io/gateway-api v1.1.0 // indirect
 	sigs.k8s.io/json v0.0.0-20250730193827-2d320260d730 // indirect
 	sigs.k8s.io/randfill v1.0.0 // indirect
