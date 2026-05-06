@@ -8,17 +8,17 @@ require (
 	github.com/google/go-github/v31 v31.0.0
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/stretchr/testify v1.11.1
-	go.uber.org/zap v1.27.1
+	go.uber.org/zap v1.28.0
 	golang.org/x/oauth2 v0.35.0
 	gopkg.in/go-playground/webhooks.v5 v5.13.0
 	k8s.io/api v0.35.4
 	k8s.io/apimachinery v0.35.4
 	k8s.io/client-go v0.35.4
 	k8s.io/code-generator v0.35.4
-	knative.dev/eventing v0.49.0
-	knative.dev/hack v0.0.0-20260421155212-aeb7b4a9bf96
-	knative.dev/pkg v0.0.0-20260422015212-ec452872dcc1
-	knative.dev/serving v0.49.0
+	knative.dev/eventing v0.49.1-0.20260504114613-23fbca18994b
+	knative.dev/hack v0.0.0-20260428014158-b2a37f1b6e7b
+	knative.dev/pkg v0.0.0-20260505204821-021ad709ec68
+	knative.dev/serving v0.49.1-0.20260504070613-3d28fb878e74
 )
 
 require (
