@@ -124,7 +124,7 @@ func (r *Reconciler) ReconcileKind(ctx context.Context, source *sourcesv1alpha1.
 
 	ksvc, err := r.reconcileReceiveAdapter(ctx, source)
 	if err != nil {
-		source.Status.MarkWebhookNotConfigured("MissingReceiveAdapter", err.Error())
+		source.Status.MarkWebhookNotConfigured("MissingReceiveAdapter", "%s", err)
 		return err
 	}
 
@@ -147,14 +147,14 @@ func (r *Reconciler) ReconcileKind(ctx context.Context, source *sourcesv1alpha1.
 		if source.Status.WebhookIDKey == "" {
 			hookID, err := r.createWebhook(ctx, args)
 			if err != nil {
-				source.Status.MarkWebhookNotConfigured("CreationFailed", err.Error())
+				source.Status.MarkWebhookNotConfigured("CreationFailed", "%s", err)
 				return err
 			}
 			source.Status.WebhookIDKey = hookID
 		} else {
 			err := r.reconcileWebhook(ctx, args, source.Status.WebhookIDKey)
 			if err != nil {
-				source.Status.MarkWebhookNotConfigured("ReconciliationFailed", err.Error())
+				source.Status.MarkWebhookNotConfigured("ReconciliationFailed", "%s", err)
 				return err
 			}
 		}

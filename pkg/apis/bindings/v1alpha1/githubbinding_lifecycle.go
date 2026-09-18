@@ -66,7 +66,7 @@ func (sbs *GitHubBindingStatus) InitializeConditions() {
 // MarkBindingUnavailable marks the GitHubBinding's Ready condition to False with
 // the provided reason and message.
 func (sbs *GitHubBindingStatus) MarkBindingUnavailable(reason, message string) {
-	sbCondSet.Manage(sbs).MarkFalse(GitHubBindingConditionReady, reason, message)
+	sbCondSet.Manage(sbs).MarkFalse(GitHubBindingConditionReady, reason, "%s", message)
 }
 
 // MarkBindingAvailable marks the GitHubBinding's Ready condition to True.
